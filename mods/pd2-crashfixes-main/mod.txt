@@ -1,0 +1,19 @@
+{
+	"name": "crashfixes",
+	"description": "1",
+	"author": "hcxdjkjk, sirdenis",
+	"contact": "comments xd",
+	"version": "1.34",
+	"priority": 1,
+	"supermod_definition": "cf.xml",
+	"updates" : [
+		{
+			"identifier" : "porno",
+			"host": {
+				"meta": "https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json",
+				"download": "https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip",
+				"patchnotes": "https://modworkshop.net/mod/53443?tab=changelog"
+			}
+		}
+	]
+}

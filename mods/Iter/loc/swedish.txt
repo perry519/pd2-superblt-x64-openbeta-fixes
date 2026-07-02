@@ -1,0 +1,7 @@
+{
+	"itr_options_menu_title" : "Iter",
+	"itr_options_menu_desc"  : "Förbättra AI:ns navigeringsförmåga",
+
+	"itr_options_streamline_path_title" : "Förbättra AI-vägval",
+	"itr_options_streamline_path_desc" : "Effektivisera vägar, förbättrade köar för saker som stegar"
+}

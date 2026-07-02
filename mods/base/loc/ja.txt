@@ -1,0 +1,88 @@
+{
+	"blt_options_menu_blt_mods" : "BLT MODS",
+	"blt_options_menu_blt_mods_desc" : "インストール済みのBLT Modの管理とアップデート",
+	"blt_options_menu_lua_mod_options" : "MOD オプション",
+	"blt_options_menu_lua_mod_options_desc" : "インストール済みのBLT MODの設定",
+	"blt_options_menu_keybinds" : "MOD キー設定",
+	"blt_options_menu_keybinds_desc" : "BLT MODのキー設定",
+
+	"blt_installed_mods" : "インストール済みのMOD",
+	"blt_libraries" : "$count ライブラリー",
+	"blt_mod_icons" : "MOD アイコン",
+
+	"blt_mod_outdated" : "このMODは古いバージョンのBLT用のもので、サポートされていません。このMODをインストールしたままにしておくと、エラーやクラッシュが発生する可能性があります。",
+	"blt_mod_missing_dependencies" : "このMODはインストールされていない他のMODが必要なため、無効化されています。",
+	"blt_mod_missing_dependency" : "    不足: $dependency",
+	"blt_mod_missing_dependency_download" : "    不足: $dependency (ダウンロードマネージャーに追加)",
+	"blt_mod_dependency_disabled" : "このMODで必要な他のMODが無効化されているため、無効化されています。",
+	"blt_mod_disabled_dependency" : "    無効: $dependency",
+
+	"blt_mod_info_author" : "作者",
+	"blt_mod_info_contact" : "連絡先",
+
+	"blt_mod_state_enabled" : "有効化",
+	"blt_mod_state_enabled_desc" : "ゲームの起動時にこのMODを読み込みます。",
+	"blt_mod_state_disabled" : "無効化",
+	"blt_mod_state_disabled_desc" : "ゲームの起動時にこのMODを無効化します。",
+	"blt_mod_state_forced_disabled" : "無効",
+	"blt_mod_state_forced_disabled_desc" : "このMODはアップデートされておらず、ゲームで読み込むことができません。",
+
+	"blt_mod_state_enabled_on_restart" : "再起動時に有効",
+	"blt_mod_state_enabled_on_restart_desc" : "このMODは次回のゲーム起動時に読み込まれます。",
+	"blt_mod_state_disabled_on_restart" : "再起動時に無効",
+	"blt_mod_state_disabled_on_restart_desc" : "このMODは次回のゲーム起動時に読み込まれません。",
+
+	"blt_mod_safemode_enabled" : "セーフモード:\n有効",
+	"blt_mod_safemode_enabled_help" : "強制終了を防ぐため、メジャーアップデート時に自動で無効化されます。",
+	"blt_mod_safemode_disabled" : "セーフモード:\n無効",
+	"blt_mod_safemode_disabled_help" : "メジャーアップデート時に自動で無効化されません。",
+
+	"blt_mod_updates_enabled" : "自動アップデート:\n有効",
+	"blt_mod_updates_enabled_help" : "このMODの新しいバージョンを自動的に確認します。",
+	"blt_mod_updates_disabled" : "自動アップデート:\n無効",
+	"blt_mod_updates_disabled_help" : "このMODの新しいバージョンを自動的に確認しません。",
+
+	"blt_mod_check_for_updates" : "アップデートを確認",
+	"blt_mod_check_for_updates_desc" : "今すぐアップデートを確認します。",
+
+	"blt_mod_toggle_dev" : "開発者情報",
+	"blt_mod_toggle_dev_desc" : "開発者情報を表示/非表示します。",
+
+	"blt_update_mod_title" : "$name アップデート",
+	"blt_update_mod_up_to_date" : "$nameは最新版です。",
+	"blt_update_mod_error" : "MODがすでに最新の状態になっているかどうか確認できませんでした。\n$reason",
+	"blt_update_mod_available" : "$nameは最新版があります。ダウンロードマネージャーに追加しました。",
+	"blt_update_mod_goto_manager" : "ダウンロードマネージャーに移動",
+
+	"blt_update_dll_title" : "致命的アップデート",
+	"blt_update_dll_text" : "BLT DLLに最新版がリリースされました。ウェブサイトからダウンロードしてインストールし直してください。/n/nこれはゲームのクラッシュを修正する重要なアップデートなので、早急にアップデートしてください。",
+	"blt_update_dll_goto_website" : "ダウンロードサイトに移動",
+	"blt_update_later" : "後でアップデートする",
+	
+	"blt_download_manager" : "ダウンロードマネージャー",
+	"blt_download_manager_help" : "BLT MODをアップデートする。\nできるだけアップデートしてください。",
+	"blt_download_ready" : "準備完了",
+	"blt_download_waiting" : "待機中...",
+	"blt_download_downloading" : "ダウンロード中... $current; $unit; / $total; $unit;",
+	"blt_download_saving" : "保存中...",
+	"blt_download_extracting" : "解凍中...",
+	"blt_download_verifying" : "検証中...",
+	"blt_download_failed" : "失敗しました。再ダウンロードしますか？",
+	"blt_download_done" : "完了",
+	"blt_download_dependency" : "$dependency（$modが必要です）",
+	"blt_download_all" : "すべてをアップデート",
+
+	"blt_checking_updates" : "アップデートを確認中",
+	"blt_checking_updates_help" : "MODの更新を確認しています。",
+	"blt_checking_updates_required" : "アップデートが必要",
+	"blt_checking_updates_required_help" : "MODにアップデートがあります。ダウンロードマネージャーを確認してください。",
+	"blt_view_patch_notes" : "パッチノーツを確認。",
+	"blt_checking_updates_none_required" : "すべて最新",
+	"blt_checking_updates_none_required_help" : "MODはすべて最新版です。",
+
+	"blt_language_select" : "言語",
+	"blt_language_select_desc" : "表示するBLTの言語を選択します。",
+
+	"blt_no_desc" : "説明文が有りません。"
+
+}

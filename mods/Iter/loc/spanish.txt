@@ -1,0 +1,12 @@
+{
+	"itr_options_menu_title" : "Iter",
+	"itr_options_menu_desc"  : "Este mod mejora la navegación de todos los NPC y soluciona varios problemas de mapas.",
+
+	"itr_options_streamline_path_title" : "Mejorar la ruta de los NPCs",
+	"itr_options_streamline_path_desc" : "Caminos optimizados y colas mejoradas para cosas como escaleras.\nEl cambio será efectivo después de reiniciar el atraco.",
+
+	"itr_options_rebuild_navlinks_title" : "Reconstruir Enlaces de Navegación",
+	"itr_options_rebuild_navlinks_desc" : "Reconstruye dinámicamente el destino de las rutas especiales (ilustradas por animaciones especiales de los personajes ). El cambio será efectivo después de reiniciar de atraco.",
+
+	"itr_options_map_change_generic_desc" : "Para más detalles, consulte $itr_url"
+}

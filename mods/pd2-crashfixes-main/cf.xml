@@ -1,0 +1,31 @@
+<mod>
+	<hooks>
+		<post script_path="lua/copactionshoot.lua" hook_id="lib/units/enemies/cop/actions/upper_body/copactionshoot"/>
+    	<post script_path="lua/timergui.lua" hook_id="lib/units/props/timergui"/>
+    	<post script_path="lua/coreworlddefinition.lua" hook_id="core/lib/utils/dev/editor/coreworlddefinition"/>
+    	<post script_path="lua/coreportalmanager.lua" hook_id="core/lib/managers/coreportalmanager"/>
+    	<post script_path="lua/teamaidamage.lua" hook_id="lib/units/player_team/teamaidamage"/>
+    	<post script_path="lua/basenetworkhandler.lua" hook_id="lib/network/base/handlers/basenetworkhandler"/>
+    	<post script_path="lua/groupaistatebesiege.lua" hook_id="lib/managers/group_ai_states/groupaistatebesiege"/>
+    	<post script_path="lua/huskplayerinventory.lua" hook_id="lib/units/beings/player/huskplayerinventory"/>
+    	<post script_path="lua/coremusicmanager.lua" hook_id="core/lib/managers/coremusicmanager"/>
+    	<post script_path="lua/musicmanager.lua" hook_id="lib/managers/musicmanager"/>
+    	<post script_path="lua/networkvoicechatsteam.lua" hook_id="llib/network/matchmaking/networkvoicechatsteam"/>
+    	<post script_path="lua/elementlasertrigger.lua" hook_id="lib/managers/mission/elementlasertrigger"/>
+    	<post script_path="lua/networkmatchmakingepic.lua" hook_id="lib/network/matchmaking/networkmatchmakingepic"/>
+    	<post script_path="lua/crimenetmanager.lua" hook_id="lib/managers/crimenetmanager"/>
+    	<post script_path="lua/networkmanager.lua" hook_id="lib/network/base/networkmanager"/>
+    	<post script_path="lua/weaponfactorymanager.lua" hook_id="lib/managers/weaponfactorymanager"/>
+    	<post script_path="lua/elementequipment.lua" hook_id="lib/managers/mission/elementequipment"/>
+    	<post script_path="lua/sentrygunweapon.lua" hook_id="lib/units/weapons/sentrygunweapon"/>
+    	<post script_path="lua/copactionwalk.lua" hook_id="lib/units/enemies/cop/actions/lower_body/copactionwalk"/>
+    	<post script_path="lua/occlusionmanager.lua" hook_id="lib/managers/occlusionmanager"/>
+    	<post script_path="lua/coreunit.lua" hook_id="core/lib/utils/coreunit"/>
+    	<post script_path="lua/corecode.lua" hook_id="core/lib/utils/corecode"/>
+    	<post script_path="lua/interactionext.lua" hook_id="lib/units/interactions/interactionext"/>
+		<post script_path="lua/blackmarketmanager.lua" hook_id="lib/managers/blackmarketmanager"/>
+		<post script_path="lua/coreevent.lua" hook_id="core/lib/utils/coreevent"/>
+		<post script_path="lua/ingamefatalstate.lua" hook_id="lib/states/ingamefatalstate"/>
+		<post script_path="lua/carrydata.lua" hook_id="lib/units/props/carrydata"/>
+  	</hooks>
+</mod>

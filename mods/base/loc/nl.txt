@@ -1,0 +1,103 @@
+{
+	"blt_options_menu_blt_mods" : "BLT Mods",
+	"blt_options_menu_blt_mods_desc" : "Update en beheer je geïnstalleerde BLT mods",
+	"blt_options_menu_lua_mod_options" : "Modopties",
+	"blt_options_menu_lua_mod_options_desc" : "Configureer je geïnstalleerde BLT mods",
+	"blt_options_menu_keybinds" : "Mod-Toetsen Bewerken",
+	"blt_options_menu_keybinds_desc" : "Stel toetsbindingen in voor je BLT mods",
+
+	"blt_installed_mods" : "Geïnstalleerde mods",
+	"blt_libraries" : "$count Bibliotheken",
+	"blt_mod_icons" : "Modiconen",
+
+	"blt_mod_outdated" : "Deze mod is gemaakt voor een oudere versie van BLT en wordt niet langer ondersteund; het is aan de ontwikkelaar om deze mod bij te werken voor de laatste versie van BLT. Het spel kan crashen als deze mod geïnstalleerd blijft.",
+	"blt_mod_missing_dependencies" : "Deze mod vereist andere, niet-geïnstalleerde mods om te functioneren en is daarom buiten werking gesteld.",
+	"blt_mod_missing_dependency" : "    Vereist: $dependency",
+	"blt_mod_missing_dependency_download" : "    Vereist: $dependency, deze is aan de downloadmanager toegevoegd",
+	"blt_mod_dependency_disabled" : "Deze mod vereist andere mods die niet ingeschakeld zijn en is daarom buiten werking gesteld.",
+	"blt_mod_disabled_dependency" : "    Uitgeschakeld: $dependency",
+
+	"blt_mod_info_author" : "Auteur",
+	"blt_mod_info_contact" : "Contact",
+
+	"blt_mod_state_enabled" : "Ingeschakeld",
+	"blt_mod_state_enabled_desc" : "Deze mod wordt automatisch geladen.",
+	"blt_mod_state_disabled" : "Uitgeschakeld",
+	"blt_mod_state_disabled_desc" : "Deze mod wordt niet automatisch geladen.",
+	"blt_mod_state_forced_disabled" : "Uitgeschakeld",
+	"blt_mod_state_forced_disabled_desc" : "Deze mod is verouderd en kan niet automatisch worden geladen.",
+
+	"blt_mod_state_enabled_on_restart" : "Ingeschakeld bij Herstart",
+	"blt_mod_state_enabled_on_restart_desc" : "Deze mod zal worden ingeschakeld wanneer het spel de eerstvolgende keer wordt gestart.",
+	"blt_mod_state_disabled_on_restart" : "Uitgeschakeld bij Herstart",
+	"blt_mod_state_disabled_on_restart_desc" : "Deze mod zal worden uitgeschakeld wanneer het spel de eerstvolgende keer wordt gestart.",
+
+	"blt_mod_safemode_enabled" : "Veilige modus:\nAan",
+	"blt_mod_safemode_enabled_help" : "Deze mod buiten werking stellen na grote updates voor het spel om crashes te voorkomen.",
+	"blt_mod_safemode_disabled" : "Veilige modus:\nUit",
+	"blt_mod_safemode_disabled_help" : "Deze mod wordt niet automatisch buiten werking gesteld na grote updates voor het spel.",
+
+	"blt_mod_updates_enabled" : "Automatische Updates:\nAan",
+	"blt_mod_updates_enabled_help" : "Automatisch controleren op updates voor deze mod.",
+	"blt_mod_updates_disabled" : "Automatische Updates:\nUit",
+	"blt_mod_updates_disabled_help" : "Er zal niet automatisch op updates worden gecontroleerd voor deze mod.",
+
+	"blt_mod_check_for_updates" : "Controleer op Updates",
+	"blt_mod_check_for_updates_desc" : "Verkrijg informatie over nieuwe mod updates van de servers.",
+
+	"blt_mod_toggle_dev" : "Wissel Ontwikkelaarsinformatie",
+	"blt_mod_toggle_dev_desc" : "Toon/verberg ontwikkelaarsinformatie voor deze mod.",
+
+	"blt_update_mod_title" : "$name Update",
+	"blt_update_mod_up_to_date" : "$name is al bijgewerkt.",
+	"blt_update_mod_error" : "Kon niet controleren of de mod al bijgewerkt is.\n$reason",
+	"blt_update_mod_available" : "Er is een update beschikbaar voor $name! Deze is toegevoegd aan de downloadmanager!",
+	"blt_update_mod_goto_manager" : "Ga naar de downloadmanager",
+
+	"blt_update_dll_title" : "Kritische Update",
+	"blt_update_dll_text" : "Er is een update beschikbaar voor de BLT DLL. Je zal deze zelf bij moeten werken door deze opnieuw te downloaden van de website.\n\nWerk deze a.u.b. zo snel mogelijk bij omdat dit een kritieke update is die crashes kan voorkomen.",
+	"blt_update_dll_goto_website" : "Ga naar de downloadpagina",
+	"blt_update_later" : "Later Updaten",
+
+	"blt_download_manager" : "Downloadmanager",
+	"blt_download_manager_help" : "Update je BLT Mods.\nZorg dat je mods bijgewerkt blijven.",
+	"blt_download_ready" : "Klaar om te downloaden",
+	"blt_download_waiting" : "Wachten...",
+	"blt_download_downloading" : "Downloaden... $current; $unit; / $total; $unit;",
+	"blt_download_saving" : "Opslaan...",
+	"blt_download_extracting" : "Uitpakken...",
+	"blt_download_verifying" : "Controleren...",
+	"blt_download_failed" : "Mislukt! Probeer Opnieuw?",
+	"blt_download_done" : "Gereed!",
+	"blt_download_dependency" : "$dependency, vereist voor $mod",
+	"blt_download_all" : "Alles Updaten",
+
+	"blt_checking_updates" : "Controleren op Updates",
+	"blt_checking_updates_help" : "Bezig met het verkrijgen van versie-informatie voor je mods, even geduld a.u.b...",
+	"blt_checking_updates_required" : "Updates Beschikbaar",
+	"blt_checking_updates_required_help" : "Er zijn updates beschikbaar voor je mods. Ga naar de downloadmanager om ze uit te voeren!",
+	"blt_view_patch_notes" : "Toon patchnotities",
+	"blt_checking_updates_none_required" : "Bijgewerkt",
+	"blt_checking_updates_none_required_help" : "Geen van je mods hoeft bijgewerkt te worden!",
+
+	"blt_language_select" : "Taal",
+	"blt_language_select_desc" : "Selecteer de taal die je voor BLT wil gebruiken",
+	"blt_language_en" : "English",
+	"blt_language_es" : "Spanish",
+	"blt_language_sv" : "Swedish",
+	"blt_language_cht" : "Chinese (Traditional)",
+	"blt_language_de" : "German",
+	"blt_language_fr" : "French",
+	"blt_language_ru" : "Russian",
+	"blt_language_tr" : "Turkish",
+	"blt_language_id" : "Indonesian",
+	"blt_language_it" : "Italian",
+	"blt_language_chs" : "Chinese (Simplified)",
+	"blt_language_pl" : "Polish",
+	"blt_language_nl" : "Nederlands",
+
+	"blt_no_image" : "Geen Afbeelding",
+	"blt_no_name" : "Geen Naam",
+	"blt_no_desc" : "Geen Beschrijving"
+
+}

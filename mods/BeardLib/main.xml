@@ -1,0 +1,226 @@
+<table
+	main_menu="BeardLibMainMenu"
+	localization_dir="$ModPath$Localization"
+	maps_dir="Maps"
+	hooks_dir="$ModPath$Hooks/"
+	modules_dir="$ModPath$Modules/"
+	classes_dir="$ModPath$Classes/"
+	assets_dir="$ModPath$Assets/"
+	image="guis/textures/beardlib_logo"
+	color="Color(0.8,0.8,0.8)"
+	auto_image_color="true"
+	mod_override_dir="assets/mod_overrides/"
+	version="5.0.6">
+	<load_modules>
+		<AddFiles directory="Assets">
+			<unit path="core/units/cubemap_gizmo/cubemap_gizmo" force_if_not_loaded="true"/>
+			<object path="core/units/cubemap_gizmo/cubemap_gizmo" force_if_not_loaded="true"/>
+			<model path="core/units/cubemap_gizmo/cubemap_gizmo" force_if_not_loaded="true"/>
+			<cooked_physics path="core/units/cubemap_gizmo/cubemap_gizmo" force_if_not_loaded="true"/>
+			<png path="guis/textures/menu_ui_icons"/>
+			<png path="guis/textures/beardlib_logo"/>
+			<png path="guis/textures/achievement_trophy_white"/>
+			<png path="guis/textures/achievement_package_default"/>
+			<png path="guis/textures/checkmark"/>
+			<!-- These units are used by many maps, they don't fully load unless used -->
+			<add from_db="true" unload="true" game="pd2">
+				<physic_effect path="physic_effects/push_sphere"/>
+
+				<unit path="core/units/run_sequence_dummy/run_sequence_dummy"/>
+				<object path="core/units/run_sequence_dummy/run_sequence_dummy"/>
+				<sequence_manager path="core/units/run_sequence_dummy/run_sequence_dummy"/>
+
+				<object path="units/dev_tools/mission_elements/point_interaction/interaction_dummy"/>
+				<sequence_manager path="units/dev_tools/mission_elements/point_interaction/interaction_dummy"/>
+				<unit path="units/dev_tools/mission_elements/point_interaction/interaction_dummy"/>
+
+				<unit path="units/payday2/props/gen_prop_lazer_blaster_dome/gen_prop_lazer_blaster_dome"/>
+				<object path="units/payday2/props/gen_prop_lazer_blaster_dome/gen_prop_lazer_blaster_dome"/>
+				<material_config path="units/payday2/props/gen_prop_lazer_blaster_dome/gen_prop_lazer_blaster_dome"/>
+
+				<!-- NPC acc stuff -->
+				<unit path="units/payday2/characters/npc_acc_canvas_bag_1/npc_acc_canvas_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_canvas_bag_1/npc_acc_canvas_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_canvas_bag_1/npc_acc_canvas_bag_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_safe_wpn_1/npc_acc_safe_wpn_1"/>
+				<object path="units/payday2/characters/npc_acc_safe_wpn_1/npc_acc_safe_wpn_1"/>
+				<material_config path="units/payday2/characters/npc_acc_safe_wpn_1/npc_acc_safe_wpn_1"/>
+
+				<unit path="units/pd2_dlc_jerry/characters/npc_acc_parachute_1/npc_acc_parachute_1"/>
+				<object path="units/pd2_dlc_jerry/characters/npc_acc_parachute_1/npc_acc_parachute_1"/>
+				<material_config path="units/pd2_dlc_jerry/characters/npc_acc_parachute_1/npc_acc_parachute_1"/>
+
+				<unit path="units/pd2_dlc_peta/characters/npc_acc_goat_bag_1/npc_acc_goat_bag_1"/>
+				<object path="units/pd2_dlc_peta/characters/npc_acc_goat_bag_1/npc_acc_goat_bag_1"/>
+				<material_config path="units/pd2_dlc_peta/characters/npc_acc_goat_bag_1/npc_acc_goat_bag_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_safe_ovk_1/npc_acc_safe_ovk_1"/>
+				<object path="units/payday2/characters/npc_acc_safe_ovk_1/npc_acc_safe_ovk_1"/>
+				<material_config path="units/payday2/characters/npc_acc_safe_ovk_1/npc_acc_safe_ovk_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_explosives_bag_1/npc_acc_explosives_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_explosives_bag_1/npc_acc_explosives_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_explosives_bag_1/npc_acc_explosives_bag_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_cage_bag_1/npc_acc_cage_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_cage_bag_1/npc_acc_cage_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_cage_bag_1/npc_acc_cage_bag_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_tools_bag_large_1/npc_acc_tools_bag_large_1"/>
+				<object path="units/payday2/characters/npc_acc_tools_bag_large_1/npc_acc_tools_bag_large_1"/>
+				<material_config path="units/payday2/characters/npc_acc_tools_bag_large_1/npc_acc_tools_bag_large_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_body_bag_1/npc_acc_body_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_body_bag_1/npc_acc_body_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_body_bag_1/npc_acc_body_bag_1"/>
+
+				<unit path="units/pd2_dlc_help/characters/npc_acc_spooky_bag/npc_acc_spooky_bag"/>
+				<object path="units/pd2_dlc_help/characters/npc_acc_spooky_bag/npc_acc_spooky_bag"/>
+				<material_config path="units/pd2_dlc_help/characters/npc_acc_spooky_bag/npc_acc_spooky_bag"/>
+
+				<unit path="units/payday2/characters/npc_acc_loot_bag_1/npc_acc_loot_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_loot_bag_1/npc_acc_loot_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_loot_bag_1/npc_acc_loot_bag_1"/>
+
+				<unit path="units/payday2/characters/npc_acc_tools_bag_1/npc_acc_tools_bag_1"/>
+				<object path="units/payday2/characters/npc_acc_tools_bag_1/npc_acc_tools_bag_1"/>
+				<material_config path="units/payday2/characters/npc_acc_tools_bag_1/npc_acc_tools_bag_1"/>
+			</add>
+		</AddFiles>
+		<Options build_menu="false">
+			<options>
+				<option name="ShowImages" type="boolean" default_value="true"/>
+				<option name="MenuColor" type="color" default_value="Color('007af3')"/>
+				<option name="ImportantNotice" type="boolean" default_value="true"/>
+				<option name="ShowErrorsDialog" type="boolean" default_value="true"/>
+				<option name="DevMode" type="boolean" default_value="false"/>
+				<option name="GithubUpdates" type="boolean" default_value="false"/>
+				<option name="LogSounds" type="boolean" default_value="false"/>
+				<option name="OptimizedMusicLoad" type="boolean" default_value="true"/>
+				<option name="CustomMapsOnlyFilter" type="boolean" default_value="false"/>
+				<option name="LogInit" type="boolean" default_value="false"/>
+				<option name="ModSettings" type="table"/>
+				<!-- These are not used anymore. All settings are in ModSettings now. Any data inside these will be moved to there. -->
+				<option name="DisabledMods" type="table"/>
+				<option name="IgnoredUpdates" type="table"/>
+			</options>
+		</Options>
+		<Hooks>
+			<hook hook_id="lib/units/weapons/raycastweaponbase" script_path="Hooks/Items/Hooks.lua"/>
+		</Hooks>
+	</load_modules>
+	<classes>
+		<!-- Not really a class, but since BeardLib starts with CoreSystem, we want to hook into this a bit earlier, so modules can start using stuff -->
+		<class file="Hooks/CoreSystem.lua"/>
+		<classes directory="Classes">
+			<class file="Constants.lua"/>
+			<class file="ModCore.lua"/>
+			<class file="MixedSoundSource.lua"/>
+			<class file="ModuleBase.lua"/>
+			<class game="pd2" file="WeaponSkinExtension.lua"/>
+			<class file="Deprecated.lua"/>
+			<class file="Frameworks.lua"/>
+
+			<classes directory="Utils">
+				<class file="Version.lua"/>
+				<class file="TweakDataHelper.lua"/>
+				<class file="CRC32.lua"/>
+				<class file="Table.lua"/>
+				<class file="String.lua"/>
+				<class file="Math.lua"/>
+				<class file="Input.lua"/>
+				<class file="Hooks.lua"/>
+				<class file="JSON.lua"/>
+				<class file="YAML.lua"/>
+				<class file="XML.lua"/>
+				<class file="Builders.lua"/>
+				<class file="Sync.lua"/>
+			</classes>
+	
+			<classes directory="Managers">
+				<class file="AchievementManager.lua"/>
+				<class file="MenuUIManager.lua"/>
+				<class file="MenuDialogManager.lua"/>
+				<class file="PackageManager.lua"/>
+				<class file="SoundManager.lua"/>
+				<class file="FileManager.lua"/>
+			</classes>
+	
+			<classes directory="UI">
+				<class file="AchievementMenu.lua"/>
+				<class file="ModsMenu.lua"/>
+	
+				<classes directory="Dialogs">
+					<class file="MenuDialog.lua"/>
+					<class file="FileBrowserDialog.lua"/>
+					<class file="ColorDialog.lua"/>
+					<class file="ListDialog.lua"/>
+					<class file="InputDialog.lua"/>
+					<class file="SelectListDialog.lua"/>
+					<class file="SimpleListDialog.lua"/>
+					<class file="DownloadDialog.lua"/>
+					<class file="SimpleSelectListDialog.lua"/>
+				</classes>
+				<classes directory="MenuUI">
+					<class file="MenuUI.lua"/>
+					<class file="TextBoxBase.lua"/>
+					<class file="ContextMenu.lua"/>
+					<class file="Item.lua"/>
+					<class file="Menu.lua"/>
+					<class file="Holder.lua"/>
+					<class file="MenuAlignMethods.lua"/>
+					<class file="KeyBind.lua"/>
+					<class file="Group.lua"/>
+					<class file="NoteBook.lua"/>
+					<class file="PopupMenu.lua"/>
+					<class file="ImageButton.lua"/>
+					<class file="Toggle.lua"/>
+					<class file="ComboBox.lua"/>
+					<class file="Slider.lua"/>
+					<class file="TextBox.lua"/>
+					<class file="ColorTextBox.lua"/>
+				</classes>
+			</classes>
+		</classes>
+	</classes>
+	<loading_classes>
+		<classes directory="Classes">
+			<class file="Constants.lua"/>
+			<class file="ModCore.lua"/>
+			<class file="ModuleBase.lua"/>
+			<class file="Deprecated.lua"/>
+			<class file="Frameworks.lua"/>
+
+			<classes directory="Managers">
+				<class file="PackageManager.lua"/>
+			</classes>
+
+			<classes directory="Utils">
+				<class file="Table.lua"/>
+				<class file="Hooks.lua"/>
+				<class file="JSON.lua"/>
+			</classes>
+		</classes>
+	</loading_classes>
+	<load_enabled_modules>
+		<value_node value="HooksModule"/>
+		<value_node value="LevelModule"/>
+		<value_node value="OptionModule"/>
+	</load_enabled_modules>
+	<mission_elements>
+		<value_node value="MoveUnit"/>
+		<value_node value="RotateUnit"/>
+		<value_node value="Environment"/>
+		<value_node value="PushInstigator"/>
+		<value_node value="CustomSound"/>
+		<value_node value="ExecuteWithCode"/>
+		<value_node value="ExecuteCode"/>
+		<value_node value="OverrideInstigator"/>
+		<value_node value="XAudio"/>
+		<value_node value="BLCustomAchievement"/>
+		<value_node value="AIGroupType"/>
+		<value_node value="RelativeTeleport"/>
+		<value_node value="RelativeTeleportTarget"/>
+	</mission_elements>
+</table>

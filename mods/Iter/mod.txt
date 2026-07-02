@@ -1,0 +1,96 @@
+{
+	"blt_version" : 2,
+	"name" : "Iter",
+	"description" : "Improved navigation for all AIs, fixed a few levels.",
+	"author" : "TdlQ\n    thai translation by NewPJzuza\n    swedish translation by TheBreakingBenny\n    chinese translation by LR_Daring\n    spanish translation by Kilowide",
+	"image" : "tdlq.dds",
+	"color" : "0.52 1 0",
+	"contact" : "",
+	"version" : "200",
+	"priority" : 40,
+	"simple_update_url" : "http://pd2mods.z77.fr/update/Iter.zip",
+	"updates": [
+		{
+			"identifier" : "SimpleModUpdater",
+			"display_name" : "Simple Mod Updater",
+			"install_folder" : "Simple Mod Updater",
+			"host" : { "meta": "http://pd2mods.z77.fr/meta/SimpleModUpdater", }
+		}
+	],
+	"pre_hooks" : [
+		{
+			"hook_id" : "core/lib/utils/corecode",
+			"script_path" : "lua/corecode.lua"
+		}
+	],
+	"hooks" : [
+		{
+			"hook_id" : "core/lib/managers/coreworldinstancemanager",
+			"script_path" : "lua/coreworldinstancemanager.lua"
+		},
+		{
+			"hook_id" : "core/lib/managers/mission/coremissionmanager",
+			"script_path" : "lua/coremissionmanager.lua"
+		},
+		{
+			"hook_id" : "core/lib/utils/dev/editor/coreworlddefinition",
+			"script_path" : "lua/coreworlddefinition.lua"
+		},
+		{ 
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "lua/localizationmanager.lua"
+		},
+		{
+			"hook_id" : "lib/managers/menumanager",
+			"script_path" : "lua/menumanager.lua"
+		},
+		{
+			"hook_id" : "lib/managers/missionmanager",
+			"script_path" : "lua/missionmanager.lua"
+		},
+		{
+			"hook_id" : "lib/managers/navigationmanager",
+			"script_path" : "lua/navigationmanager.lua"
+		},
+		{
+			"hook_id" : "lib/managers/group_ai_states/groupaistatebase",
+			"script_path" : "lua/groupaistatebase.lua"
+		},
+		{
+			"hook_id" : "lib/managers/mission/elementspecialobjective",
+			"script_path" : "lua/elementspecialobjective.lua"
+		},
+		{
+			"hook_id" : "lib/units/civilians/civilianbrain",
+			"script_path" : "lua/civilianbrain.lua"
+		},
+		{
+			"hook_id" : "lib/units/civilians/logics/civilianlogictravel",
+			"script_path" : "lua/civilianlogictravel.lua"
+		},
+		{
+			"hook_id" : "lib/units/enemies/cop/copbrain",
+			"script_path" : "lua/copbrain.lua"
+		},
+		{
+			"hook_id" : "lib/units/enemies/cop/actions/lower_body/copactionwalk",
+			"script_path" : "lua/copactionwalk.lua"
+		},
+		{
+			"hook_id" : "lib/units/enemies/cop/logics/coplogicidle",
+			"script_path" : "lua/coplogicidle.lua"
+		},
+		{
+			"hook_id" : "lib/units/enemies/cop/logics/coplogictravel",
+			"script_path" : "lua/coplogictravel.lua"
+		},
+		{
+			"hook_id" : "lib/units/player_team/teamaibrain",
+			"script_path" : "lua/teamaibrain.lua"
+		},
+		{
+			"hook_id" : "lib/units/props/drill",
+			"script_path" : "lua/drill.lua"
+		}
+	]
+}

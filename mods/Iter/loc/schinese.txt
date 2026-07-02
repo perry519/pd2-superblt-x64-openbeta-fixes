@@ -1,0 +1,12 @@
+{
+	"itr_options_menu_title" : "路径优化",
+	"itr_options_menu_desc"  : "",
+
+	"itr_options_streamline_path_title" : "改善NPC的寻路能力",
+	"itr_options_streamline_path_desc" : "使NPC的路线顺畅， 优化诸如有敌人爬梯子之类动作时造成其他敌军排队等待的问题\n此项的改变会在劫案重启后生效。",
+
+	"itr_options_rebuild_navlinks_title" : "重新建立路径导航链接",
+	"itr_options_rebuild_navlinks_desc" : "优化诸如翻墙等动作结束后的路径以解决NPC进行动画后绕路的问题\n此项的改变会在劫案重启后生效。",
+
+	"itr_options_map_change_generic_desc" : "访问$itr_url以了解该MOD在不同地图下的优化细节"
+}
