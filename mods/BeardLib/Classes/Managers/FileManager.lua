@@ -167,7 +167,7 @@ function BeardLibFileManager:LoadFileFromDB(ext, path)
 
 	if not ok then
 		local message = tostring(err)
-		local missing_loader = message:find("No such Wren IO object", 1, true) or message:find("wren_io", 1, true)
+		local missing_loader = err == nil or message:find("No such Wren IO object", 1, true) or message:find("wren_io", 1, true)
 		if not missing_loader then
 			error(err)
 		elseif not self._wren_asset_loader_warning then
