@@ -1,4 +1,8 @@
+-- luacheck: globals BLT Distribution dohttpreq
+
 BLT._http_request_id = BLT._http_request_id or 0
+
+local native_dohttpreq = type(dohttpreq) == "function" and dohttpreq or nil
 
 local function normalize_http_url(url)
 	if type(url) ~= "string" then
@@ -16,7 +20,7 @@ function BLT:HttpGet(url, clbk, progress_clbk)
 		self._http_request_id = self._http_request_id + 1
 		local http_id = self._http_request_id
 
-		Distribution:make_http_request("GET", url, function(error_code, status_code, response_body)
+		Distribution:make_http_request("GET", url, function(_error_code, status_code, response_body)
 			status_code = tonumber(status_code) or 0
 			local ok = status_code >= 200 and status_code < 400
 			local body = response_body or ""
@@ -36,5 +40,24 @@ function BLT:HttpGet(url, clbk, progress_clbk)
 		return http_id
 	end
 
-	return dohttpreq(url, clbk, progress_clbk)
+	if native_dohttpreq then
+		return native_dohttpreq(url, clbk, progress_clbk)
+	end
+
+	if clbk then
+		clbk("", nil, {
+			statusCode = 0,
+			querySucceeded = false,
+			url = url,
+			headers = {},
+		})
+	end
+
+	return nil
+end
+
+if not native_dohttpreq then
+	function dohttpreq(url, clbk, progress_clbk)
+		return BLT:HttpGet(url, clbk, progress_clbk)
+	end
 end
