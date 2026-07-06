@@ -34,6 +34,11 @@ local function file_key(value)
 	return value and value:key()
 end
 
+local function wren_asset_key(value)
+	local key = file_key(value)
+	return key and "@" .. key or nil
+end
+
 function BeardLibFileManager:Process(ids_ext, ids_path, name_mt)
 	local data = {}
 	if DB:_has(ids_ext, ids_path) then
@@ -154,15 +159,17 @@ function BeardLibFileManager:LoadFileFromDB(ext, path)
 
 	local k_ext = ext:key()
 
-	local wren_io = blt and blt.wren_io
-	local invoke = wren_io and wren_io.invoke
-	local ok, err
-	if type(invoke) == "function" then
-		ok, err = pcall(function()
-			return invoke(BeardLib.Utils:GetNameFromModPath(BeardLib.ModPath), "AssetLoader", nil, "load", ext, path)
-		end)
-	else
-		ok, err = false, "blt.wren_io.invoke is unavailable"
+	local ok, err = true
+	if not self._wren_asset_loader_unavailable then
+		local wren_io = blt and blt.wren_io
+		local invoke = wren_io and wren_io.invoke
+		if type(invoke) == "function" then
+			ok, err = pcall(function()
+				return invoke(BeardLib.Utils:GetNameFromModPath(BeardLib.ModPath), "AssetLoader", nil, "load", wren_asset_key(ext), wren_asset_key(path))
+			end)
+		else
+			ok, err = false, "blt.wren_io.invoke is unavailable"
+		end
 	end
 
 	if not ok then
@@ -170,9 +177,12 @@ function BeardLibFileManager:LoadFileFromDB(ext, path)
 		local missing_loader = err == nil or message:find("No such Wren IO object", 1, true) or message:find("wren_io", 1, true)
 		if not missing_loader then
 			error(err)
-		elseif not self._wren_asset_loader_warning then
-			self._wren_asset_loader_warning = true
-			BeardLib:log("[WARN] Wren AssetLoader is unavailable; continuing with DB-backed asset registration. Error: %s", message)
+		else
+			self._wren_asset_loader_unavailable = true
+			if not self._wren_asset_loader_warning then
+				self._wren_asset_loader_warning = true
+				BeardLib:log("[WARN] Wren AssetLoader is unavailable; continuing with DB-backed asset registration. Error: %s", message)
+			end
 		end
 	end
 

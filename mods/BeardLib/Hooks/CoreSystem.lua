@@ -55,16 +55,6 @@ overwrite_meta_function(MassUnitManager, "load", function(self, path, ...)
 	return self:_load(path, ...)
 end)
 
-overwrite_meta_function(PackageManager, "unit_data", function(self, unit_name, ...)
-	if unit_name and Global.fm.added_files[key_unit] then
-		local file = Global.fm.added_files[key_unit][tostring(unit_name:key())]
-		if file then
-			Managers.File:LoadAsset(ids_unit, unit_name, file.file)
-		end
-	end
-	return self:_unit_data(unit_name, ...)
-end)
-
 overwrite_meta_function(PackageManager, "script_data", function(self, ext, path, name_mt)
 	return Managers.File:Process(ext, path, name_mt)
 end)

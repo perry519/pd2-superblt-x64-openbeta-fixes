@@ -1,5 +1,8 @@
 local ugcitem_loaded, ugcitem_error = pcall(require, "lib/managers/workshop/UGCItem")
 if not ugcitem_loaded then
+    ugcitem_loaded, ugcitem_error = pcall(require, "lib/managers/workshop/ugcitem")
+end
+if not ugcitem_loaded then
     log("[WARN] BeardLib WeaponSkinExtension disabled: " .. tostring(ugcitem_error))
 end
 

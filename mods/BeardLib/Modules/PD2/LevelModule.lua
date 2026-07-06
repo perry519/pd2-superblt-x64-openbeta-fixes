@@ -81,7 +81,7 @@ end
 
 function LevelModule:Load()
     if self._config.include then
-        for i, include_data in ipairs(self._config.include) do
+        for _, include_data in ipairs(self._config.include) do
             if include_data.file then
                 local file_split = string.split(include_data.file, "[.]")
                 local complete_path = Path:Combine(self._mod.ModPath, self._config.include.directory, include_data.file)
@@ -218,7 +218,7 @@ function LevelModule:RegisterHook()
             local lootbags = LootBagsModule:new(self._mod, self._config.lootbags)
             lootbags:RegisterHook()
         end
-		
+
 		if self._config.hudicon then
             local hudicon = HUDIconModule:new(self._mod, self._config.hudicon)
             hudicon:RegisterHook()
@@ -302,7 +302,7 @@ function InstanceModule:RegisterHook()
         local lootbags = LootBagsModule:new(self._mod, self._config.lootbags)
         lootbags:RegisterHook()
     end
-    
+
 end
 
 function InstanceModule:Load()
