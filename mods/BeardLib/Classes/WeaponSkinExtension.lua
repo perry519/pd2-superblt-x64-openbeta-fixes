@@ -1,23 +1,18 @@
-local ugcitem_loaded, ugcitem_error = pcall(require, "lib/managers/workshop/UGCItem")
-if not ugcitem_loaded then
-    ugcitem_loaded, ugcitem_error = pcall(require, "lib/managers/workshop/ugcitem")
-end
-if not ugcitem_loaded then
-    log("[WARN] BeardLib WeaponSkinExtension disabled: " .. tostring(ugcitem_error))
-end
-
 WeaponSkinExtension = WeaponSkinExtension or class()
 WeaponSkinExtension.TEXTURE_FILE_TYPE = "texture"
 
 function WeaponSkinExtension:init(asset_path, skin_id)
-    if not ugcitem_loaded or not UGCItem then
-        log("WeaponSkinExtension - [WARN] UGCItem is unavailable; skipping weapon skin '" .. tostring(skin_id) .. "'.")
-        return
-    end
-
     if not asset_path or not SystemFS:exists(asset_path) then
         log("WeaponSkinExtension - [ERROR] Asset directory at '" .. tostring(asset_path) .. "' do not exist.")
         return
+    end
+
+    if not UGCItem or not UGCItem.load then
+        local ugcitem_loaded = pcall(require, "lib/managers/workshop/UGCItem")
+        if not ugcitem_loaded or not UGCItem or not UGCItem.load then
+            log("WeaponSkinExtension - [WARN] UGCItem is unavailable; skipping weapon skin '" .. tostring(skin_id) .. "'.")
+            return
+        end
     end
 
     self._id = skin_id
