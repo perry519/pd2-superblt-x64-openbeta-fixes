@@ -1,0 +1,52 @@
+{
+	"blt_version" : 2,
+	"name" : "More Weapon Stats",
+	"description" : "",
+	"author" : "TdlQ, KarateF22 for all the code taken from Better Weapon Stats GUI\n    code maintenance by Nexqua\n    chinese translation by Arknights\n    thai translation by NewPJzuza\n    russian translation by andole and x(GOREMAGEDDON)x\n    spanish translation by Kilowide",
+	"image" : "tdlq.dds",
+	"color" : "0.52 1 0",
+	"contact" : "",
+	"version" : "76",
+	"priority" : 20,
+	"simple_update_url" : "http://pd2mods.z77.fr/update/MoreWeaponStats.zip",
+	"updates": [
+		{
+			"identifier" : "SimpleModUpdater",
+			"display_name" : "Simple Mod Updater",
+			"install_folder" : "Simple Mod Updater",
+			"host" : { "meta": "http://pd2mods.z77.fr/meta/SimpleModUpdater", }
+		}
+	],
+	"pre_hooks" : [
+		{
+			"hook_id" : "lib/entry",
+			"script_path" : "lua/entry.lua"
+		},
+		{
+			"hook_id" : "lib/units/weapons/menuraycastweaponbase",
+			"script_path" : "lua/menuraycastweaponbase.lua"
+		},
+		{
+			"hook_id" : "lib/units/weapons/menusawweaponbase",
+			"script_path" : "lua/menusawweaponbase.lua"
+		},
+		{
+			"hook_id" : "lib/units/weapons/menushotgunbase",
+			"script_path" : "lua/menushotgunbase.lua"
+		}
+	],
+	"hooks" : [
+		{
+			"hook_id" : "core/lib/utils/coretable",
+			"script_path" : "lua/coretable.lua"
+		},
+		{
+			"hook_id" : "lib/managers/menumanager",
+			"script_path" : "lua/menumanager.lua"
+		},
+		{
+			"hook_id" : "lib/managers/menu/blackmarketgui",
+			"script_path" : "lua/blackmarketgui.lua"
+		}
+	]
+}
