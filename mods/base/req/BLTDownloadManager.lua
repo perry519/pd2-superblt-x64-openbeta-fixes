@@ -214,27 +214,19 @@ function BLTDownloadManager:clbk_download_finished(data, http_id, request_info)
 				BLT:Log(LogLevel.ERROR, "[Downloads]  Local: ", local_hash)
 			end
 		else
-			local mod_txt = extract_path .. "/mod.txt" -- Check the downloaded mod.txt (if it exists) to know we are downloading a valid mod with valid version.
-			if file.FileExists(mod_txt) then
-				local file = io.open(mod_txt, "r")
-				local mod_data = json.decode(file:read("*all"))
-				if mod_data then -- Is the data valid json?
-					local version = mod_data.version
-					local server_version = download.update:GetServerVersion()
-					-- Server version may be nil for simple URL based dependencies
-					if server_version == nil or server_version == version then
-						passed_check = true
-					else -- Versions don't match
-						BLT:Log(LogLevel.ERROR, string.format("[Downloads] Failed to verify versions of '%s'", download_name))
-						BLT:Log(LogLevel.ERROR, "[Downloads] Server: ", server_version)
-						BLT:Log(LogLevel.ERROR, "[Downloads]  Local: ", version)
-					end
-				else
-					BLT:Log(LogLevel.ERROR, string.format("[Downloads] Could not read mod data of '%s' (invalid json)", download_name))
+			local mod_data = BLTMod.ReadManifest(extract_path .. "/", true)
+			if mod_data then
+				local server_version = download.update:GetServerVersion()
+				-- Server version may be nil for simple URL based dependencies
+				if server_version == nil or server_version == mod_data.version then
+					passed_check = true
+				else -- Versions don't match
+					BLT:Log(LogLevel.ERROR, string.format("[Downloads] Failed to verify versions of '%s'", download_name))
+					BLT:Log(LogLevel.ERROR, "[Downloads] Server: ", server_version)
+					BLT:Log(LogLevel.ERROR, "[Downloads]  Local: ", mod_data.version)
 				end
-				file:close()
 			else
-				BLT:Log(LogLevel.ERROR, string.format("[Downloads] Could not read mod data of '%s' (no mod.txt found)", download_name))
+				BLT:Log(LogLevel.ERROR, string.format("[Downloads] Could not read mod data of '%s'", download_name))
 			end
 		end
 		if not passed_check then

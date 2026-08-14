@@ -5,22 +5,41 @@ BLTUpdate.enabled = true
 BLTUpdate.revision = 1
 
 function BLTUpdate:init(parent_mod, data)
-	if not parent_mod or not data or not data.host then
+	if not parent_mod or not data then
 		return false
 	end
 
 	self.parent_mod = parent_mod
-	self.id = data.identifier or ""
+	self.id = data.identifier or parent_mod:GetId()
 	self.name = data.display_name or parent_mod:GetName()
 	self.dir = data.install_dir or parent_mod:GetDir()
 	self.folder = data.install_folder or parent_mod:GetId()
 	self.disallow_update = data.disallow_update or false
 	self.hash_file = data.hash_file or false
 	self.critical = data.critical or false
-	self.host = data.host
 	self.present_func = data.present_func
 
-	return true
+	local host = type(data.host) == "table" and data.host or {}
+	local provider = data.provider or host.provider or "meta_file"
+	if provider == "mws" then
+		self.host = {
+			meta = data.meta or host.meta or string.format("https://api.modworkshop.net/mods/%s/version", self.id),
+			download = data.download or host.download or string.format("https://api.modworkshop.net/mods/%s/download", self.id),
+			patchnotes = data.patchnotes or host.patchnotes or string.format("https://modworkshop.net/mod/%s?tab=changelog", self.id),
+		}
+		self._direct_version = true
+	elseif provider == "meta_file" then
+		self.host = {
+			meta = host.meta or data.meta,
+			download = host.download or data.download,
+			patchnotes = host.patchnotes or data.patchnotes,
+		}
+	else
+		BLT:Log(LogLevel.ERROR, "[Updates] Unknown provider '" .. tostring(provider) .. "'")
+		return false
+	end
+
+	return self.host.meta ~= nil
 end
 
 function BLTUpdate:__tostring()
@@ -44,9 +63,25 @@ function BLTUpdate:CheckForUpdates(clbk)
 	self._requesting_updates = true
 
 	-- Perform the request from the server
-	BLT:HttpGet(self.host.meta, function(json_data, http_id, request_info)
-		self:clbk_got_update_data(clbk, json_data, http_id, request_info)
+	BLT:HttpGet(self.host.meta, function(response, http_id, request_info)
+		if self._direct_version then
+			self:clbk_got_update_version(clbk, response, request_info)
+		else
+			self:clbk_got_update_data(clbk, response, http_id, request_info)
+		end
 	end)
+end
+
+function BLTUpdate:clbk_got_update_version(clbk, version, request_info)
+	self._requesting_updates = false
+	if not request_info.querySucceeded or string.is_nil_or_empty(version) then
+		self._error = "Could not retrieve update data."
+		return self:_run_update_callback(clbk, false, self._error)
+	end
+
+	self._server_version = version
+	self._uses_hash = false
+	return self:_run_update_callback(clbk, self.parent_mod.version ~= version)
 end
 
 function BLTUpdate:clbk_got_update_data(clbk, json_data, http_id, request_info)

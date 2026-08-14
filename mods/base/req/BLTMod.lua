@@ -5,8 +5,47 @@ BLTMod.enabled = true
 BLTMod._enabled = true
 BLTMod.safe_mode = true
 
+function BLTMod.ReadManifest(path, archive)
+	local data
+	local selected
+	if io.file_is_readable(path .. "mod.txt") then
+		selected = true
+		data = io.load_as_json(path .. "mod.txt")
+	elseif io.file_is_readable(path .. "mod.json") then
+		selected = true
+		data = io.load_as_json(path .. "mod.json")
+	end
+
+	local definition = archive and "supermod.xml" or data and data.supermod_definition or "supermod.xml"
+	local xml_path = path .. definition
+	if archive then
+		if selected then
+			return data
+		end
+		local xml = io.file_is_readable(xml_path) and BLTSuperMod.read(xml_path)
+		return xml and xml.params or nil
+	end
+
+	if not data and not io.file_is_readable(xml_path) then
+		return
+	end
+	return data or {}, BLTSuperMod.read(xml_path), definition
+end
+
 function BLTMod:init(identifier, data, path)
-	if not identifier or not data or not path then
+	if not identifier or not path then
+		return false
+	end
+
+	local xml
+	local definition
+	if data then
+		definition = data.supermod_definition or "supermod.xml"
+		xml = BLTSuperMod.read(path .. definition)
+	else
+		data, xml, definition = BLTMod.ReadManifest(path)
+	end
+	if not data then
 		return false
 	end
 
@@ -16,9 +55,12 @@ function BLTMod:init(identifier, data, path)
 	-- Mod information
 	self.id = identifier
 	self.json_data = data
+	self.raw_data = data
 	self.path = path
+	self.supermod_definition = definition
+	self.supermod = BLTSuperMod.try_load(self, definition, xml)
 
-	self.name = data.name or "Unnamed BLT Mod"
+	self.name = data.name or identifier
 	self.desc = data.description or "No description"
 	self.version = data.version or "1.0"
 	self.blt_version = data.blt_version or "1.0"
@@ -39,7 +81,7 @@ function BLTMod:init(identifier, data, path)
 	self.updates = {}
 	if data.updates then
 		for i, update_data in ipairs(data.updates) do
-			if not update_data.host then
+			if not update_data.host and not update_data.provider then
 				-- Old PaydayMods update, server is gone so don't update those
 				-- Do keep track of what we have installed though, for dependencies
 				if update_data.identifier then -- sanity check
@@ -91,7 +133,17 @@ function BLTMod:Setup()
 	end
 
 	-- Set up the supermod instance
-	self.supermod = BLTSuperMod.try_load(self, self.json_data.supermod_definition)
+	if self.supermod then
+		self.supermod:Setup()
+	end
+
+	for _, module_data in ipairs(self.json_data.native_modules or {}) do
+		self:LoadNativeModule(module_data)
+	end
+
+	for _, script_data in ipairs(self.json_data.entry_scripts or {}) do
+		self:RunEntryScript(script_data)
+	end
 end
 
 function BLTMod:AddHooks(data_key, destination, wildcards_destination)
@@ -144,6 +196,25 @@ function BLTMod:AddPersistScript(global, file)
 		global = global,
 		file = file
 	})
+end
+
+function BLTMod:LoadNativeModule(data)
+	if not self:IsEnabled() or data.loading_vector == "preload" then
+		return
+	end
+	if not blt.load_native or not blt.blt_info then
+		BLT:Log(LogLevel.ERROR, string.format("[BLT] Cannot load native module for '%s'", self:GetName()))
+		return
+	end
+	if blt.blt_info().platform == data.platform then
+		blt.load_native(self:GetPath() .. data.filename)
+	end
+end
+
+function BLTMod:RunEntryScript(data)
+	if self:IsEnabled() and data.script_path then
+		BLT:RunHookFile(data.script_path, { mod = self, script = data.script_path })
+	end
 end
 
 function BLTMod:GetHooks()
