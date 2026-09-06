@@ -1,10 +1,6 @@
 local key = ModPath .. '	' .. RequiredScript
 if _G[key] then return else _G[key] = true end
 
-if Iter:should_skip_navigation_hooks() then
-	return
-end
-
 Iter.navlengths = {
 	e_nl_10m_turn_l_2m = Vector3(-188.552, 1052.47, -3.23807), -- 1069
 	e_nl_10m_turn_r_2m = Vector3(174.631, 1069.4, -1.32419), -- 1083
@@ -434,29 +430,4 @@ function Iter:get_navlink_vector(so_action, rotation)
 	mvector3.set(result, vbase)
 	mvector3.rotate_with(result, rotation)
 	return result
-end
-
-if not Iter.settings.rebuild_navlinks then
-	return
-end
-
-local itr_original_elementspecialobjective_finalize_values = ElementSpecialObjective._finalize_values
-function ElementSpecialObjective:_finalize_values(values)
-	if values.is_navigation_link and values.position and values.search_position and values.rotation then
-		local nlv = Iter:get_navlink_vector(values.so_action, values.rotation)
-		if nlv then
-			mvector3.add(nlv, values.position)
-
-			local tracker = managers.navigation:create_nav_tracker(nlv, true)
-			local pos_on_field = tracker:field_position()
-			local same_idseg = tracker:nav_segment() == managers.navigation:get_nav_seg_from_pos(values.search_position, true)
-			managers.navigation:destroy_nav_tracker(tracker)
-
-			if same_idseg or mvector3.distance(values.search_position, pos_on_field) > 200 then
-				values.search_position = pos_on_field
-			end
-		end
-	end
-
-	return itr_original_elementspecialobjective_finalize_values(self, values)
 end

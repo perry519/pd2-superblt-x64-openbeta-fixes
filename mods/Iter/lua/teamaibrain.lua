@@ -1,10 +1,6 @@
 local key = ModPath .. '	' .. RequiredScript
 if _G[key] then return else _G[key] = true end
 
-if Iter:should_skip_navigation_hooks() then
-	return
-end
-
 if not Iter.settings.streamline_path then
 	return
 end

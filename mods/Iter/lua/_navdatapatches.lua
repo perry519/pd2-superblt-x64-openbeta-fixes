@@ -308,11 +308,9 @@ elseif level_id == 'flat' then
 		itr_original_navigationmanager_addobstacle(self, obstacle_unit, ...)
 	end
 
-elseif Iter:should_skip_navigation_hooks() then
-
-	function NavigationManager:set_load_data(data)
-		itr_original_navigationmanager_setloaddata(self, data)
-	end
+elseif level_id == 'gallery' or level_id == 'framing_frame_1' then
+	-- Keep native shutter links reachable; the old segment-100 room split is obsolete.
+	return
 
 elseif level_id == 'jewelry_store' then
 
@@ -730,7 +728,25 @@ local nav_data_sigs = {
 }
 nav_data_sigs.framing_frame_1 = nav_data_sigs.gallery
 
-local function _is_expected_data(data, a, b)
+local patch_skip_reported
+local function _skip_patch(reason)
+	if not patch_skip_reported then
+		patch_skip_reported = true
+		Iter:log(('skipped %s navigation patch: %s'):format(level_id, reason))
+	end
+	return false
+end
+
+local function _is_expected_data(data)
+	if data.version ~= 5 then
+		return _skip_patch(('unsupported schema %s'):format(tostring(data.version)))
+	end
+	for _, field in ipairs({ 'nav_segments', 'vis_groups', 'door_low_pos', 'door_high_pos' }) do
+		if type(data[field]) ~= 'table' then
+			return _skip_patch('missing v5 field ' .. field)
+		end
+	end
+
 	local tbls = {
 		'door_high_rooms',
 		'door_low_rooms',
@@ -747,19 +763,21 @@ local function _is_expected_data(data, a, b)
 	}
 	local sig = 0
 	for _, tblname in ipairs(tbls) do
-		for _, n in ipairs(data[tblname]) do
+		local values = data[tblname]
+		if type(values) ~= 'table' then
+			return _skip_patch('missing v5 field ' .. tblname)
+		end
+		for _, n in ipairs(values) do
 			sig = feed_int(sig, n)
 		end
 	end
 
 	local is_ok = sig == nav_data_sigs[level_id]
 	if not is_ok then
-		log()
-		log(('[Iter] outdated navigation patch! (%i)'):format(sig))
-		log()
+		return _skip_patch(('unknown v5 signature %i'):format(sig))
 	end
 
-	return is_ok
+	return true
 end
 
 local second_itr_original_navigationmanager_setloaddata = NavigationManager.set_load_data

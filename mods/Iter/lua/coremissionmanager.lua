@@ -1,5 +1,9 @@
 local key = ModPath .. '	' .. RequiredScript
-if _G[key] then return else _G[key] = true end
+if _G[key] then
+	return
+else
+	_G[key] = true
+end
 
 core:module('CoreMissionManager')
 core:import('CoreTable')
@@ -50,7 +54,7 @@ local function _make_navlink(id, editor_name, so_action, from_pos, to_pos, angle
 			interrupt_dis = 0,
 			path_style = 'destination',
 			patrol_path = 'none',
-		}
+		},
 	}
 end
 
@@ -68,7 +72,7 @@ local function _add_forbid_custom(data, id, navsegs)
 			trigger_times = 0,
 			on_executed = {},
 			enabled = true,
-		}
+		},
 	}
 	table.insert(data.elements, element)
 	table.insert(itr_custom_elements, id)
@@ -97,9 +101,7 @@ if Network:is_client() then
 		for id, mission_state in pairs(state) do
 			-- there can be uninitialized elements when host doesn't use Iter
 			local element = self._elements[id]
-			if element and type(element.load) == 'function' then
-				element:load(mission_state)
-			end
+			if element and type(element.load) == 'function' then element:load(mission_state) end
 		end
 	end
 else
@@ -127,17 +129,29 @@ if not _G.Iter.settings['map_change_' .. level_id] then
 elseif level_id == 'alex_1' or level_id == 'rat' then
 
 	function MissionManager:_add_script(data)
-		local navlink = _make_navlink(102659, 'itr_SO_teammate_navlink_roof_down', 'e_nl_dwn_3_75m',
+		local navlink = _make_navlink(
+			102659,
+			'itr_SO_teammate_navlink_roof_down',
+			'e_nl_dwn_3_75m',
 			Vector3(2235, 973, 2097),
 			Vector3(2395, 595, 1718),
-			-90, '261600', 1.5)
+			-90,
+			'261600',
+			1.5
+		)
 		table.insert(data.elements, navlink)
 		table.insert(itr_custom_elements, 102659)
 
-		navlink = _make_navlink(102660, 'itr_SO_teammate_navlink_roof_up', 'e_nl_ladder_up_3m',
+		navlink = _make_navlink(
+			102660,
+			'itr_SO_teammate_navlink_roof_up',
+			'e_nl_ladder_up_3m',
 			Vector3(2455, 800, 1726),
 			Vector3(2200, 800, 2100.55),
-			90, '261600', 1)
+			90,
+			'261600',
+			1
+		)
 		table.insert(data.elements, navlink)
 		table.insert(itr_custom_elements, 102660)
 
@@ -155,9 +169,7 @@ elseif level_id == 'arena' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 102016 or element.id == 102090 then
-				element.values.enabled = false
-			end
+			if element.id == 102016 or element.id == 102090 then element.values.enabled = false end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -221,7 +233,7 @@ elseif level_id == 'big' then
 			[100548] = true,
 			[100550] = true,
 			[100552] = true,
-			[100554] = true
+			[100554] = true,
 		}
 		for _, element in pairs(data.elements) do
 			if outer[element.id] then
@@ -241,11 +253,11 @@ elseif level_id == 'big' then
 						execute_on_startup = false,
 						trigger_times = 1,
 						toggle = 'on',
-						base_delay = 0
-					}
+						base_delay = 0,
+					},
 				})
 				table.insert(itr_custom_elements, bus_id)
-				table.insert(element.values.on_executed, {id = bus_id, delay = 0})
+				table.insert(element.values.on_executed, { id = bus_id, delay = 0 })
 
 			elseif element.id == 103101 then
 				table.insert(element.values.on_executed, { id = 103619, delay = 0 })
@@ -259,9 +271,7 @@ elseif level_id == 'born' then
 
 	function MissionScript:_create_elements(elements)
 		for _, element in pairs(elements) do
-			if element.id == 100780 then
-				element.values.needs_pos_rsrv = false
-			end
+			if element.id == 100780 then element.values.needs_pos_rsrv = false end
 		end
 
 		return itr_original_missionscript_createelements(self, elements)
@@ -292,9 +302,7 @@ elseif level_id == 'cane' then
 
 	function MissionScript:_create_elements(elements)
 		for _, element in pairs(elements) do
-			if element.id == 136356 then
-				element.values.on_executed[1].id = 136446
-			end
+			if element.id == 136356 then element.values.on_executed[1].id = 136446 end
 		end
 
 		return itr_original_missionscript_createelements(self, elements)
@@ -319,18 +327,14 @@ elseif level_id == 'chew' then
 		for _, element in pairs(elements) do
 			if element.values.is_navigation_link and element.values.interval then
 				element.values.interval = math.max(1, element.values.interval - 3)
-				if element.editor_name:find('ladder_nl00') == 1 then
-					mvector3.set_x(element.values.position, -1)
-				end
+				if element.editor_name:find('ladder_nl00') == 1 then mvector3.set_x(element.values.position, -1) end
 			end
 
 			if ladder_nl[element.id] then
-				table.insert(element.values.on_executed, { delay = 0, id = ladder_nl[element.id]})
+				table.insert(element.values.on_executed, { delay = 0, id = ladder_nl[element.id] })
 			end
 
-			if element.values.is_navigation_link then
-				element.values.SO_access = '262140'
-			end
+			if element.values.is_navigation_link then element.values.SO_access = '262140' end
 		end
 
 		return itr_original_missionscript_createelements(self, elements)
@@ -341,9 +345,7 @@ elseif level_id == 'chill_combat' then
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
 			if element.class == 'ElementPlayerCharacterTrigger' then
-				if element.values.trigger_on_left then
-					element.values.enabled = false
-				end
+				if element.values.trigger_on_left then element.values.enabled = false end
 			end
 		end
 
@@ -379,7 +381,7 @@ elseif level_id == 'dinner' then
 		for _, element in pairs(data.elements) do
 			if elm2door[element.id] then
 				if not element.values.sequence_list or not element.values.sequence_list[1] then
-					element.values.sequence_list = {{sequence = 'done_opened', guis_id = 1}}
+					element.values.sequence_list = { { sequence = 'done_opened', guis_id = 1 } }
 				end
 				element.values.sequence_list[1].unit_id = elm2door[element.id]
 			end
@@ -407,19 +409,23 @@ elseif level_id == 'escape_street' then
 	function MissionManager:_add_script(data)
 		local so_action = 'e_nl_under_0_7m'
 
-		local navlink = _make_navlink(103000, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1286, -847, 400), nil, 180)
+		local navlink =
+			_make_navlink(103000, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1286, -847, 400), nil, 180)
 		table.insert(itr_custom_elements, 103000)
 		table.insert(data.elements, navlink)
 
-		local navlink2 = _make_navlink(103001, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1286, -1074, 400), nil, 0)
+		local navlink2 =
+			_make_navlink(103001, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1286, -1074, 400), nil, 0)
 		table.insert(itr_custom_elements, 103001)
 		table.insert(data.elements, navlink2)
 
-		local navlink3 = _make_navlink(103002, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1556, -847, 400), nil, 180)
+		local navlink3 =
+			_make_navlink(103002, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1556, -847, 400), nil, 180)
 		table.insert(itr_custom_elements, 103002)
 		table.insert(data.elements, navlink3)
 
-		local navlink4 = _make_navlink(103003, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1556, -1074, 400), nil, 0)
+		local navlink4 =
+			_make_navlink(103003, 'itr_navlink_reachextension_seg_48', so_action, Vector3(1556, -1074, 400), nil, 0)
 		table.insert(itr_custom_elements, 103003)
 		table.insert(data.elements, navlink4)
 
@@ -430,9 +436,7 @@ elseif level_id == 'family' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 104059 then
-				element.values.elements[1] = 101527
-			end
+			if element.id == 104059 then element.values.elements[1] = 101527 end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -442,9 +446,7 @@ elseif level_id == 'fex' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 100022 then
-				table.insert(element.values.on_executed, { id = 152892, delay = 0 })
-			end
+			if element.id == 100022 then table.insert(element.values.on_executed, { id = 152892, delay = 0 }) end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -453,21 +455,38 @@ elseif level_id == 'fex' then
 elseif level_id == 'firestarter_1' then
 
 	function MissionManager:_add_script(data)
-		table.insert(itr_custom_elements, 105000)
+		local elements_by_id = {}
 
 		for _, element in pairs(data.elements) do
-			if element.id == 100411 then
-				local ai_graph = CoreTable.deep_clone(element)
-				ai_graph.id = 105000
-				ai_graph.values.graph_ids[1] = 24
-				table.insert(data.elements, ai_graph)
-			elseif element.id == 100409 then
-				table.insert(element.values.on_executed, { delay = 0, id = 105000 })
-			elseif element.id == 104355 or element.id == 104356 then
+			elements_by_id[element.id] = element
+			if
+				(element.id == 104355 or element.id == 104356)
+				and element.values
+				and element.values.sequence_list
+				and element.values.sequence_list[1]
+			then
 				local new_seq = CoreTable.deep_clone(element.values.sequence_list[1])
 				new_seq.sequence = 'int_seq_bullet_hit'
 				table.insert(element.values.sequence_list, new_seq)
 			end
+		end
+
+		local ai_graph = elements_by_id[100411]
+		local trigger = elements_by_id[100409]
+		if
+			ai_graph
+			and ai_graph.values
+			and ai_graph.values.graph_ids
+			and trigger
+			and trigger.values
+			and trigger.values.on_executed
+		then
+			ai_graph = CoreTable.deep_clone(ai_graph)
+			ai_graph.id = 105000
+			ai_graph.values.graph_ids[1] = 24
+			table.insert(data.elements, ai_graph)
+			table.insert(trigger.values.on_executed, { delay = 0, id = 105000 })
+			table.insert(itr_custom_elements, 105000)
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -476,37 +495,34 @@ elseif level_id == 'firestarter_1' then
 elseif level_id == 'firestarter_3' or level_id == 'branchbank' then
 
 	function MissionManager:_add_script(data)
-		table.insert(itr_custom_elements, 106000)
-		table.insert(itr_custom_elements, 106001)
-
-		local element106000 = {
-			id = 106000,
-			class = 'ElementAINavSeg',
-			editor_name = 'itr_add_link1',
-			values = {
-				enabled = true,
-				operation = 'add_nav_seg_neighbours',
-				base_delay = 0,
-				on_executed = {},
-				execute_on_startup = false,
-				trigger_times = 0,
-				segment_ids = { 92, 55, 55, 92 }
-			}
-		}
-		table.insert(data.elements, element106000)
-
-		local element106001 = CoreTable.deep_clone(element106000)
-		element106001.id = 106001
-		element106001.values.segment_ids = { 93, 56, 56, 93 }
-		element106001.editor_name = 'itr_add_link2'
-		table.insert(data.elements, element106001)
-
+		local triggers = {}
 		for _, element in pairs(data.elements) do
-			if element.id == 102160 then
-				table.insert(element.values.on_executed, { delay = 0, id = 106000 })
-			elseif element.id == 100311 then
-				table.insert(element.values.on_executed, { delay = 0, id = 106001 })
+			if element.id == 102160 and element.values and element.values.on_executed then
+				triggers[106000] = element
+			elseif element.id == 100311 and element.values and element.values.on_executed then
+				triggers[106001] = element
 			end
+		end
+
+		for id, trigger in pairs(triggers) do
+			local first = id == 106000
+			local element = {
+				id = id,
+				class = 'ElementAINavSeg',
+				editor_name = first and 'itr_add_link1' or 'itr_add_link2',
+				values = {
+					enabled = true,
+					operation = 'add_nav_seg_neighbours',
+					base_delay = 0,
+					on_executed = {},
+					execute_on_startup = false,
+					trigger_times = 0,
+					segment_ids = first and { 92, 55, 55, 92 } or { 93, 56, 56, 93 },
+				},
+			}
+			table.insert(data.elements, element)
+			table.insert(trigger.values.on_executed, { delay = 0, id = id })
+			table.insert(itr_custom_elements, id)
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -529,8 +545,8 @@ elseif level_id == 'flat' then
 				execute_on_startup = false,
 				trigger_times = 1,
 				toggle = 'on',
-				base_delay = 0
-			}
+				base_delay = 0,
+			},
 		}
 		return element
 	end
@@ -545,7 +561,7 @@ elseif level_id == 'flat' then
 			values = {
 				enabled = true,
 				on_executed = {
-					{ delay = 0, id = toggle_id }
+					{ delay = 0, id = toggle_id },
 				},
 				elements = { so_id },
 				event = 'anim_act_04',
@@ -553,8 +569,8 @@ elseif level_id == 'flat' then
 				trigger_times = 1,
 				base_delay = 0,
 				position = pos,
-				rotation = Rotation(0, 0, -0)
-			}
+				rotation = Rotation(0, 0, -0),
+			},
 		}
 		return element
 	end
@@ -587,24 +603,162 @@ elseif level_id == 'flat' then
 				if so_id then
 					SOs[so_id] = true
 					table.insert(data.elements, itr_mk_toggle(insert_id, element.id))
-					table.insert(data.elements, itr_mk_trigger(insert_id + 1, window_to_SO[element.id], insert_id, element.values.position))
+					table.insert(
+						data.elements,
+						itr_mk_trigger(insert_id + 1, window_to_SO[element.id], insert_id, element.values.position)
+					)
 					insert_id = insert_id + 2
 				end
 			end
 		end
 		for _, element in pairs(data.elements) do
-			if SOs[element.id] then
-				element.values.scan = true
-			end
+			if SOs[element.id] then element.values.scan = true end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
 	end
 
-elseif _G.Iter:should_skip_navigation_hooks() then
+elseif level_id == 'gallery' or level_id == 'framing_frame_1' then
 
 	function MissionManager:_add_script(data)
-		itr_original_missionmanager_addscript(self, data)
+		local elements = {}
+		for _, element in pairs(data.elements) do
+			elements[element.id] = element
+		end
+		local relay = elements[103437]
+		if not relay then return itr_original_missionmanager_addscript(self, data) end
+		if
+			relay.class ~= 'MissionScriptElement'
+			or relay.editor_name ~= 'teamAINavlink'
+			or not relay.values
+			or type(relay.values.on_executed) ~= 'table'
+		then
+			return itr_original_missionmanager_addscript(self, data)
+		end
+		local targets = {}
+		for _, target in pairs(relay.values.on_executed) do
+			targets[target.id] = true
+		end
+		for _, id in ipairs({ 103434, 103435 }) do
+			local roof = elements[id]
+			if
+				not targets[id]
+				or not roof
+				or roof.class ~= 'ElementSpecialObjective'
+				or not roof.values
+				or not roof.values.is_navigation_link
+				or roof.values.so_action ~= 'e_nl_down_7m'
+				or roof.values.SO_access ~= '245760'
+			then
+				return itr_original_missionmanager_addscript(self, data)
+			end
+		end
+		for id = 105002, 105012 do
+			if elements[id] then return itr_original_missionmanager_addscript(self, data) end
+		end
+
+		local function add(element)
+			element.values.execute_on_startup = false
+			if element.class == 'ElementSpecialObjective' then element.values.itr_window = element.editor_name end
+			table.insert(data.elements, element)
+			table.insert(itr_custom_elements, element.id)
+		end
+		add(
+			_make_navlink(
+				105002,
+				'itr_navlink_window1_in',
+				'e_nl_up_1m',
+				Vector3(2139, 860, -98),
+				Vector3(2139, 743, 1.5),
+				180,
+				'245760'
+			)
+		)
+		for window, spec in ipairs({
+			{
+				unit = 100378,
+				from = Vector3(2139, 743, 1.5),
+				to = Vector3(2139, 1070, -98),
+				after = Vector3(2139, 860, -98),
+				angle = 0,
+				out = 105003,
+			},
+			{
+				unit = 100275,
+				from = Vector3(2103, -739, 1.5),
+				to = Vector3(2064, -1072, -120),
+				after = Vector3(2064, -1072, -120),
+				angle = 180,
+				out = 105005,
+			},
+		}) do
+			local name = 'itr_navlink_window' .. window .. '_out'
+			add(_make_navlink(spec.out, name, 'e_nl_jump_dwn_1_4m_fwd_2_35m', spec.from, spec.to, spec.angle, '245760'))
+			add(
+				_make_navlink(spec.out + 1, name .. '_bis', 'e_nl_down_1m', spec.from, spec.after, spec.angle, '245760')
+			)
+			add({
+				id = 105006 + window,
+				class = 'ElementToggle',
+				module = 'CoreElementToggle',
+				editor_name = 'itr_toggle_window' .. window,
+				values = {
+					enabled = true,
+					trigger_times = 1,
+					base_delay = 0,
+					on_executed = {},
+					elements = { spec.out },
+					toggle = 'off',
+					set_trigger_times = -1,
+				},
+			})
+			add({
+				id = 105008 + window,
+				class = 'ElementUnitSequence',
+				module = 'CoreElementUnitSequence',
+				editor_name = 'itr_seq_destroy_window' .. window,
+				values = {
+					position = Vector3(),
+					enabled = true,
+					trigger_times = 0,
+					base_delay = 0,
+					trigger_list = {
+						{
+							id = 1,
+							time = 0,
+							notify_unit_id = spec.unit,
+							name = 'run_sequence',
+							notify_unit_sequence = 'seq_damage_window',
+						},
+						{
+							id = 2,
+							time = 0,
+							notify_unit_id = spec.unit,
+							name = 'run_sequence',
+							notify_unit_sequence = 'seq_break_window',
+						},
+					},
+					on_executed = { { delay = 0, id = 105006 + window }, { delay = 0, id = spec.out + 1 } },
+				},
+			})
+			add({
+				id = 105010 + window,
+				class = 'ElementSpecialObjectiveTrigger',
+				editor_name = 'itr_trigger_destroy_window' .. window,
+				values = {
+					enabled = true,
+					trigger_times = 1,
+					base_delay = 0,
+					event = 'anim_act_04',
+					elements = window == 1 and { 105002, spec.out } or { spec.out },
+					on_executed = { { delay = 0, id = 105008 + window } },
+				},
+			})
+		end
+		for _, id in ipairs({ 105002, 105003, 105005 }) do
+			table.insert(relay.values.on_executed, { delay = 0, id = id })
+		end
+		return itr_original_missionmanager_addscript(self, data)
 	end
 
 elseif level_id == 'friend' then
@@ -628,9 +782,9 @@ elseif level_id == 'friend' then
 						on_executed = {},
 						execute_on_startup = false,
 						trigger_times = 0,
-						segment_ids = { 106, 55, 55, 106 }
+						segment_ids = { 106, 55, 55, 106 },
 					},
-					editor_name = 'itr_remove_link1'
+					editor_name = 'itr_remove_link1',
 				}
 				table.insert(data.elements, element105000)
 
@@ -670,16 +824,16 @@ elseif level_id == 'hox_1' then
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
 			if element.id == 101627 then
-				_add_forbid_custom(data, 104000, {3, 9, 93, 32, 73, 31})
+				_add_forbid_custom(data, 104000, { 3, 9, 93, 32, 73, 31 })
 				table.insert(element.values.on_executed, { id = 104000, delay = 0 })
 			elseif element.id == 101628 then
-				_add_forbid_custom(data, 104001, {14, 16, 19, 20, 1})
+				_add_forbid_custom(data, 104001, { 14, 16, 19, 20, 1 })
 				table.insert(element.values.on_executed, { id = 104001, delay = 0 })
 			elseif element.id == 101630 then
-				_add_forbid_custom(data, 104002, {69, 98, 99, 84, 29, 30})
+				_add_forbid_custom(data, 104002, { 69, 98, 99, 84, 29, 30 })
 				table.insert(element.values.on_executed, { id = 104002, delay = 0 })
 			elseif element.id == 101631 then
-				_add_forbid_custom(data, 104003, {25, 26, 78, 106, 107})
+				_add_forbid_custom(data, 104003, { 25, 26, 78, 106, 107 })
 				table.insert(element.values.on_executed, { id = 104003, delay = 0 })
 			end
 		end
@@ -689,11 +843,10 @@ elseif level_id == 'hox_1' then
 
 elseif level_id == 'hox_2' then
 
-
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
 			if element.id == 100018 then
-				_add_forbid_custom(data, 103000, {45, 47, 50, 51, 60, 62})
+				_add_forbid_custom(data, 103000, { 45, 47, 50, 51, 60, 62 })
 				table.insert(element.values.on_executed, { id = 103000, delay = 0 })
 			end
 		end
@@ -711,8 +864,15 @@ elseif level_id == 'jolly' then
 		table.insert(itr_custom_elements, base_element_id + 3)
 
 		for _, element in pairs(data.elements) do
-			if element.id == 100760 or element.id == 100761 or element.id == 100762 or element.id == 100763
-			or element.id == 100766 or element.id == 100767 or element.id == 100768 or element.id == 100769
+			if
+				element.id == 100760
+				or element.id == 100761
+				or element.id == 100762
+				or element.id == 100763
+				or element.id == 100766
+				or element.id == 100767
+				or element.id == 100768
+				or element.id == 100769
 			then
 				element.values.SO_access = '16383'
 
@@ -779,9 +939,7 @@ elseif level_id == 'kenaz' then
 
 	function MissionScript:_create_elements(elements)
 		for _, element in pairs(elements) do
-			if element.id == 196574 then
-				table.insert(element.values.on_executed, { delay = 0, id = 102887 })
-			end
+			if element.id == 196574 then table.insert(element.values.on_executed, { delay = 0, id = 102887 }) end
 		end
 
 		return itr_original_missionscript_createelements(self, elements)
@@ -807,14 +965,14 @@ elseif level_id == 'kosugi' then
 						on_executed = {},
 						elements = {
 							103543,
-							103545
+							103545,
 						},
 						set_trigger_times = -1,
 						execute_on_startup = false,
 						trigger_times = 0,
 						toggle = 'on',
-						base_delay = 0
-					}
+						base_delay = 0,
+					},
 				}
 				table.insert(elements, element105000)
 			elseif element.id == 103543 or element.id == 103545 then
@@ -879,9 +1037,7 @@ elseif level_id == 'mia_1' then
 			[137451] = true,
 		}
 		for _, element in pairs(elements) do
-			if unusable_navlinks[element.id] then
-				element.values.enabled = false
-			end
+			if unusable_navlinks[element.id] then element.values.enabled = false end
 		end
 
 		return itr_original_missionscript_createelements(self, elements)
@@ -924,7 +1080,7 @@ elseif level_id == 'mus' then
 					{ delay = 0, id = 100796 },
 					{ delay = 0, id = 100797 },
 				},
-			}
+			},
 		}
 		table.insert(data.elements, entrance_trigger)
 
@@ -935,9 +1091,7 @@ elseif level_id == 'pbr2' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 100063 then
-				table.remove(element.values.on_executed, 2)
-			end
+			if element.id == 100063 then table.remove(element.values.on_executed, 2) end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -967,11 +1121,11 @@ elseif level_id == 'peta' then
 						execute_on_startup = false,
 						trigger_times = 1,
 						toggle = 'on',
-						base_delay = 0
-					}
+						base_delay = 0,
+					},
 				})
 				table.insert(itr_custom_elements, ramp_id)
-				table.insert(element.values.on_executed, {id = ramp_id, delay = 5})
+				table.insert(element.values.on_executed, { id = ramp_id, delay = 5 })
 			end
 		end
 
@@ -983,7 +1137,7 @@ elseif level_id == 'pex' then
 	function MissionScript:_create_elements(elements)
 		for _, element in pairs(elements) do
 			if element.id == 100636 then
-				table.insert(element.values.on_executed, {id = 100875, delay = 0})
+				table.insert(element.values.on_executed, { id = 100875, delay = 0 })
 			elseif element.id == 153486 then
 				element.values.position = Vector3(-1225, 820, 950)
 				element.values.search_position = Vector3(-1225, 1020, 500)
@@ -1031,7 +1185,10 @@ elseif level_id == 'rvd1' then
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
 			if element.id == 101436 then
-				table.insert(element.values.sequence_list, { unit_id = 100072, guis_id = 1, sequence = 'int_seq_break' } )
+				table.insert(
+					element.values.sequence_list,
+					{ unit_id = 100072, guis_id = 1, sequence = 'int_seq_break' }
+				)
 			end
 		end
 
@@ -1042,9 +1199,7 @@ elseif level_id == 'skm_big2' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 102241 then
-				table.delete(element.values.graph_ids, 20)
-			end
+			if element.id == 102241 then table.delete(element.values.graph_ids, 20) end
 		end
 
 		itr_original_missionmanager_addscript(self, data)
@@ -1074,16 +1229,16 @@ elseif level_id == 'vit' then
 		for _, element in pairs(data.elements) do
 			if element.id == 104080 then
 				element.class = 'ElementDeleteVehicle'
-				element.values.unit_ids = {101268}
+				element.values.unit_ids = { 101268 }
 
 			elseif element.id == 101444 then
 				element1 = CoreTable.deep_clone(element)
 			elseif element.id == 103172 then
-				table.insert(element.values.on_executed, {id = 105000, delay = 0})
+				table.insert(element.values.on_executed, { id = 105000, delay = 0 })
 			elseif element.id == 103171 then
-				table.insert(element.values.on_executed, {id = 105001, delay = 0})
+				table.insert(element.values.on_executed, { id = 105001, delay = 0 })
 			elseif element.id == 103170 then
-				table.insert(element.values.on_executed, {id = 105002, delay = 0})
+				table.insert(element.values.on_executed, { id = 105002, delay = 0 })
 			end
 		end
 
@@ -1114,9 +1269,7 @@ elseif level_id == 'welcome_to_the_jungle_2' then
 
 	function MissionManager:_add_script(data)
 		for _, element in pairs(data.elements) do
-			if element.id == 102507 then
-				element.values.sequence_list[1].sequence = 'done_opened'
-			end
+			if element.id == 102507 then element.values.sequence_list[1].sequence = 'done_opened' end
 		end
 
 		itr_original_missionmanager_addscript(self, data)

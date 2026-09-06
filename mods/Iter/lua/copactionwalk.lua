@@ -1,13 +1,11 @@
 local key = ModPath .. '	' .. RequiredScript
-if _G[key] then return else _G[key] = true end
-
-if Iter:should_skip_navigation_hooks() then
+if _G[key] then
 	return
+else
+	_G[key] = true
 end
 
-if not Iter.settings.streamline_path then
-	return
-end
+if not Iter.settings.streamline_path then return end
 
 local mvec3_cpy = mvector3.copy
 local mvec3_dis = mvector3.distance
@@ -18,6 +16,10 @@ local mvec3_z = mvector3.z
 
 local itr_original_copactionwalk_init = CopActionWalk._init
 function CopActionWalk:_init()
+	local brain = self._common_data.ext_brain
+	local internal_data = brain and brain._logic_data and brain._logic_data.internal_data
+	local coarse_path = internal_data and internal_data.coarse_path
+	self.itr_access_neg = coarse_path and coarse_path.itr_access_neg
 	local nav_path = self._nav_path
 	if nav_path and not nav_path[2] then
 		local expand_nav_path
@@ -27,45 +29,31 @@ function CopActionWalk:_init()
 		elseif not managers.groupai:state():enemy_weapons_hot() then
 			expand_nav_path = true
 		end
-		if expand_nav_path then
-			table.insert(nav_path, 1, mvector3.copy(self._common_data.pos))
-		end
+		if expand_nav_path then table.insert(nav_path, 1, mvector3.copy(self._common_data.pos)) end
 	end
 
 	local result = itr_original_copactionwalk_init(self)
 
-	if result and self._sync then
-		self:itr_prepare_for_upcoming_navlink()
-	end
+	if result and self._sync then self:itr_prepare_for_upcoming_navlink() end
 
 	return result
 end
 
 if Network:is_server() then
 	function CopActionWalk:itr_check_extensible()
-		if not self.itr_path_ahead then
-			return
-		end
+		if not self.itr_path_ahead then return end
 
-		if self._end_of_curved_path or self._end_of_path or self._host_stop_pos_ahead then
-			return
-		end
+		if self._end_of_curved_path or self._end_of_path or self._host_stop_pos_ahead then return end
 
-		if self._haste ~= 'run' then
-			return
-		end
+		if self._haste ~= 'run' then return end
 
-		if self._action_desc.path_simplified then
-			return
-		end
+		if self._action_desc.path_simplified then return end
 
 		return true
 	end
 
 	function CopActionWalk:itr_append_next_step(path)
-		if not self:itr_check_extensible() then
-			return
-		end
+		if not self:itr_check_extensible() then return end
 
 		processed_path = {}
 		for _, nav_point in ipairs(path) do
@@ -74,7 +62,7 @@ if Network:is_server() then
 			elseif alive(nav_point) then
 				table.insert(processed_path, {
 					element = nav_point:script_data().element,
-					c_class = nav_point
+					c_class = nav_point,
 				})
 			else
 				return
@@ -84,7 +72,13 @@ if Network:is_server() then
 		local nr = #self._simplified_path
 		self.itr_step_pos = self._nav_point_pos(self._simplified_path[nr])
 		local good_pos = mvec3_cpy(self.itr_step_pos)
-		local simplified_path = self._calculate_simplified_path(good_pos, processed_path, (not self._sync or self._common_data.stance.name == 'ntl') and 2 or 1, self._sync, true)
+		local simplified_path = self._calculate_simplified_path(
+			good_pos,
+			processed_path,
+			(not self._sync or self._common_data.stance.name == 'ntl') and 2 or 1,
+			self._sync,
+			true
+		)
 
 		for i = 2, #simplified_path do
 			nr = nr + 1
@@ -98,9 +92,7 @@ if Network:is_server() then
 		local navlink = self._next_is_nav_link.c_class
 		if alive(navlink) then
 			local delay_t = self._next_is_nav_link.c_class:delay_time()
-			if not delay_t or t >= delay_t then
-				return true
-			end
+			if not delay_t or t >= delay_t then return true end
 		end
 	end
 
@@ -118,8 +110,9 @@ if Network:is_server() then
 	local itr_original_copactionwalk_playnavlinkanim = CopActionWalk._play_nav_link_anim
 	function CopActionWalk:_play_nav_link_anim(t)
 		if self:itr_check_navlink_delay(t) then
+			local element = self._next_is_nav_link.element
 			self:itr_set_navlink_delay(t)
-			self:itr_clear_navlink_reservation(self._next_is_nav_link.element)
+			self:itr_clear_navlink_reservation(element)
 			itr_original_copactionwalk_playnavlinkanim(self, t)
 		end
 	end
@@ -130,14 +123,33 @@ if Network:is_server() then
 		local to_seg_id = navlink_values.itr_to_navseg
 		local access_pos = self._common_data.ext_brain._SO_access
 		local near_pos = self._common_data.pos
-		local alt_navlink_c_class, alt_navlink_element = managers.navigation:itr_find_best_navlink(from_seg_id, to_seg_id, access_pos, near_pos, current_navlink_element)
+		local alt_navlink_c_class, alt_navlink_element = managers.navigation:itr_find_best_navlink(
+			from_seg_id,
+			to_seg_id,
+			access_pos,
+			near_pos,
+			current_navlink_element,
+			self.itr_access_neg
+		)
 		if alt_navlink_element and alt_navlink_element ~= current_navlink_element then
 			return alt_navlink_c_class, alt_navlink_element
 		end
 	end
 
+	local function itr_set_navlink_reservation(self, navlink_element)
+		if self.itr_reserved_navlink_element ~= navlink_element then self:itr_clear_navlink_reservation() end
+		if navlink_element.itr_reserved_by_action ~= self then
+			if navlink_element.itr_reserved_by_action then Iter:count_runtime(managers.navigation, 'released') end
+			Iter:count_runtime(managers.navigation, 'reserved')
+		end
+		navlink_element.itr_reserved_by_unit = self._unit
+		navlink_element.itr_reserved_by_action = self
+		self.itr_reserved_navlink_element = navlink_element
+	end
+
 	function CopActionWalk:itr_reserve_navlink(navlink_element)
 		if navlink_element._values.itr_interval == 0 then
+			self:itr_clear_navlink_reservation()
 			return true
 		end
 
@@ -151,10 +163,11 @@ if Network:is_server() then
 		if not alive(user) or user:id() == -1 then
 			local oldest_t = navlink_element.itr_navlink_queue_previous_oldest_t
 			if not oldest_t or wait_since_t <= oldest_t then
-				navlink_element.itr_reserved_by_unit = self._unit
+				itr_set_navlink_reservation(self, navlink_element)
 				return true
 			end
 		elseif user:key() == self._unit:key() then
+			itr_set_navlink_reservation(self, navlink_element)
 			return true
 		end
 
@@ -173,9 +186,12 @@ if Network:is_server() then
 			if alt_navlink_element and not alt_navlink_element.itr_reserved_by_unit then
 				local new_navpoint = {
 					element = alt_navlink_element,
-					c_class = alt_navlink_c_class
+					c_class = alt_navlink_c_class,
 				}
-				local invalid_after_navlink = mvec3_dis(old_navlink_element._values.search_position, alt_navlink_element._values.search_position) > 400
+				local invalid_after_navlink = mvec3_dis(
+					old_navlink_element._values.search_position,
+					alt_navlink_element._values.search_position
+				) > 400
 				if self._next_is_nav_link then
 					self._next_is_nav_link = nil
 					self._end_of_curved_path = nil
@@ -184,7 +200,7 @@ if Network:is_server() then
 							self._simplified_path[1],
 							mvec3_cpy(alt_navlink_element._values.position),
 							new_navpoint,
-							mvec3_cpy(alt_navlink_element._values.search_position)
+							mvec3_cpy(alt_navlink_element._values.search_position),
 						}
 					else
 						self._simplified_path[2] = new_navpoint
@@ -197,13 +213,14 @@ if Network:is_server() then
 							self._simplified_path[1],
 							self._simplified_path[2],
 							new_navpoint,
-							mvec3_cpy(alt_navlink_element._values.search_position)
+							mvec3_cpy(alt_navlink_element._values.search_position),
 						}
 					else
 						self._simplified_path[3] = new_navpoint
 					end
 				end
-				alt_navlink_element.itr_reserved_by_unit = self._unit
+				itr_set_navlink_reservation(self, alt_navlink_element)
+				Iter:count_runtime(managers.navigation, 'switched')
 				self.itr_wait_for_navlink = nil
 
 				return true
@@ -214,10 +231,17 @@ if Network:is_server() then
 	end
 
 	function CopActionWalk:itr_clear_navlink_reservation(navlink_element)
-		local user = navlink_element.itr_reserved_by_unit
-		if user and user:key() == self._unit:key() then
+		navlink_element = navlink_element or self.itr_reserved_navlink_element
+		if not navlink_element then return end
+
+		if navlink_element.itr_reserved_by_action == self then
+			Iter:count_runtime(managers.navigation, 'released')
 			navlink_element.itr_reserved_by_unit = nil
-			if not navlink_element.itr_navlink_queue_frame_t or navlink_element.itr_navlink_queue_frame_t < self._last_upd_t then
+			navlink_element.itr_reserved_by_action = nil
+			if
+				not navlink_element.itr_navlink_queue_frame_t
+				or navlink_element.itr_navlink_queue_frame_t < self._last_upd_t
+			then
 				navlink_element.itr_navlink_queue_frame_t = nil
 				navlink_element.itr_navlink_queue_oldest_t = nil
 				navlink_element.itr_navlink_queue_previous_oldest_t = nil
@@ -225,10 +249,11 @@ if Network:is_server() then
 				navlink_element.itr_navlink_queue_length = nil
 			end
 		end
+		if self.itr_reserved_navlink_element == navlink_element then self.itr_reserved_navlink_element = nil end
 	end
 
 	function CopActionWalk:itr_get_wait_pos(navseg_id, near_pos)
-		local cover = managers.navigation:find_cover_in_nav_seg_3({[navseg_id] = true}, 400, near_pos)
+		local cover = managers.navigation:find_cover_in_nav_seg_3({ [navseg_id] = true }, 400, near_pos)
 		local wait_pos = cover and cover[1] or CopLogicTravel._get_pos_on_wall(near_pos, 400)
 		return wait_pos
 	end
@@ -243,7 +268,8 @@ if Network:is_server() then
 			navlink_element.itr_navlink_queue_previous_oldest_t = navlink_element.itr_navlink_queue_oldest_t
 			navlink_element.itr_navlink_queue_oldest_t = t
 		else
-			navlink_element.itr_navlink_queue_length_in_progress = navlink_element.itr_navlink_queue_length_in_progress + 1
+			navlink_element.itr_navlink_queue_length_in_progress = navlink_element.itr_navlink_queue_length_in_progress
+				+ 1
 		end
 
 		if self.itr_wait_for_navlink_availability_t < navlink_element.itr_navlink_queue_oldest_t then
@@ -252,15 +278,11 @@ if Network:is_server() then
 	end
 
 	function CopActionWalk:itr_prepare_for_upcoming_navlink()
-		if self.itr_wait_for_navlink then
-			return
-		end
+		if self.itr_wait_for_navlink then return end
 
 		local index = self._next_is_nav_link and 2 or 3
 		local upcoming_navlink = self._simplified_path[index]
-		if type(upcoming_navlink) ~= 'table' then
-			return
-		end
+		if type(upcoming_navlink) ~= 'table' then return end
 
 		local navlink_element = upcoming_navlink.element
 		if self:itr_reserve_navlink(navlink_element) then
@@ -272,11 +294,12 @@ if Network:is_server() then
 			if index == 2 then
 				self:_set_updator('itr_update_wait_for_navlink_availability')
 			else
-				local wait_pos = self:itr_get_wait_pos(navlink_element._values.itr_from_navseg, navlink_element._values.position)
+				local wait_pos =
+					self:itr_get_wait_pos(navlink_element._values.itr_from_navseg, navlink_element._values.position)
 				if wait_pos then
 					self._common_data.ext_brain:add_pos_rsrv('stand', {
 						radius = 30,
-						position = mvec3_cpy(wait_pos)
+						position = mvec3_cpy(wait_pos),
 					})
 					table.insert(self._simplified_path, index, wait_pos)
 				end
@@ -315,9 +338,7 @@ if Network:is_server() then
 		else
 			self._last_upd_t = t
 			self:itr_update_navlink_queue_data(navlink_element)
-			if self._ext_anim.move then
-				self:_stop_walk()
-			end
+			if self._ext_anim.move then self:_stop_walk() end
 			return
 		end
 
@@ -330,17 +351,13 @@ if Network:is_server() then
 	local itr_original_CopActionWalk_onexit = CopActionWalk.on_exit
 	function CopActionWalk:on_exit()
 		self.itr_path_ahead = false
-		if self._next_is_nav_link then
-			self:itr_clear_navlink_reservation(self._next_is_nav_link.element)
-		end
+		self:itr_clear_navlink_reservation()
 		return itr_original_CopActionWalk_onexit(self)
 	end
 end
 
 function CopActionWalk:itr_delete_path_ahead()
-	if not self.itr_step_pos then
-		return
-	end
+	if not self.itr_step_pos then return end
 
 	local s_path = self._simplified_path
 	if s_path[1] == self.itr_step_pos then
@@ -349,11 +366,10 @@ function CopActionWalk:itr_delete_path_ahead()
 	end
 
 	for i = 2, #s_path do
-		pos = s_path[i]
+		local pos = s_path[i]
 		if pos == self.itr_step_pos then
-			i = i + 1
-			while s_path[i] do
-				table.remove(s_path, i)
+			while s_path[i + 1] do
+				table.remove(s_path, i + 1)
 			end
 			break
 		end
@@ -396,7 +412,18 @@ function CopActionWalk._chk_shortcut_pos_to_pos(from, to, trace)
 			mvec3_set(raised_to, to)
 			mvec3_set_z(raised_to, to_z + 65)
 
-			local res2 = World:raycast('ray', raised_from, raised_to, 'sphere_cast_radius', 40, 'slot_mask', _obstacle_mask, 'ray_type', 'walk', 'report')
+			local res2 = World:raycast(
+				'ray',
+				raised_from,
+				raised_to,
+				'sphere_cast_radius',
+				40,
+				'slot_mask',
+				_obstacle_mask,
+				'ray_type',
+				'walk',
+				'report'
+			)
 			if not res2 then
 				local middle_up = tmp_vec1
 				mvec3_lerp(middle_up, from, to, 0.5)
@@ -406,10 +433,9 @@ function CopActionWalk._chk_shortcut_pos_to_pos(from, to, trace)
 				mvec3_set(middle_down, middle_up)
 				mvec3_set_z(middle_down, min_z - 100)
 
-				local res3 = World:raycast('ray', middle_up, middle_down, 'slot_mask', _obstacle_mask, 'ray_type', 'walk')
-				if res3 and res3.distance < 40 then
-					return res2, trace and {to}
-				end
+				local res3 =
+					World:raycast('ray', middle_up, middle_down, 'slot_mask', _obstacle_mask, 'ray_type', 'walk')
+				if res3 and res3.distance < 40 then return res2, trace and { to } end
 			end
 		end
 	end

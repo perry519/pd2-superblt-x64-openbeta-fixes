@@ -15,18 +15,6 @@
 		},
 		{
 			"type" : "toggle",
-			"id" : "rebuild_navlinks",
-			"title" : "itr_options_rebuild_navlinks_title",
-			"description" : "itr_options_rebuild_navlinks_desc",
-			"callback" : "IterMenuCheckboxClbk",
-			"value" : "rebuild_navlinks"
-		},
-		{
-			"type" : "divider",
-			"size" : 16
-		},
-		{
-			"type" : "toggle",
 			"id" : "map_change_alex_1",
 			"title" : "itr_options_map_change_alex_1_title",
 			"description" : "itr_options_map_change_generic_desc",

@@ -5,9 +5,6 @@
 	"itr_options_streamline_path_title" : "Improve NPC pathing",
 	"itr_options_streamline_path_desc" : "Streamlined paths, improved queueing for things like ladders.\nChange will be effective after a heist restart.",
 
-	"itr_options_rebuild_navlinks_title" : "Rebuild NavLinks",
-	"itr_options_rebuild_navlinks_desc" : "Dynamically rebuild destinations of special paths (illustrated by special character animations).\nChange will be effective after a heist restart.",
-
 	"itr_options_map_change_alex_1_title" : "$heist_alex ($heist_alex_1_hl)",
 	"itr_options_map_change_alex_2_title" : "$heist_alex ($heist_alex_2_hl)",
 	"itr_options_map_change_arena_title" : "$heist_arena",
