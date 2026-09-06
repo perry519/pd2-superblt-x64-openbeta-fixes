@@ -1,0 +1,62 @@
+{
+	"fs_options_menu_title" : "Full Speed Swarm",
+	"fs_options_menu_desc"  : "",
+
+	"fs_options_task_throughput_title" : "Task throughput per second",
+	"fs_options_task_throughput_desc" : "FSS' default value is 600, a greater value only makes sense for mutated spawn settings.\nA low value will penalize all NPC responsiveness. All values below base game's default value mean 'auto'.",
+
+	"fs_options_walking_quality_title" : "Walking quality",
+	"fs_options_walking_quality_desc" : "A character is moved at least once every 2 frames on VH and every frames on Ultra.\nChange will be effective after a heist restart.",
+	"fs_options_walking_quality_multi_a" : "Original",
+	"fs_options_walking_quality_multi_b" : "Very high",
+	"fs_options_walking_quality_multi_c" : "Ultra",
+
+	"fs_options_lod_updater_title" : "LOD updater",
+	"fs_options_lod_updater_desc" : "Characters you look at (screen center) are animated better. This is about updating who you're looking at.\nChange will be effective after a heist restart.",
+	"fs_options_lod_updater_multi_a" : "Custom (quality)",
+	"fs_options_lod_updater_multi_b" : "Custom (fast)",
+	"fs_options_lod_updater_multi_c" : "Original",
+
+	"fs_options_high_violence_mode_title" : "High violence mode",
+	"fs_options_high_violence_mode_desc" : "For ragdolls enthusiasts.",
+
+	"fs_options_fastpaced_title" : "Fast-paced game",
+	"fs_options_fastpaced_desc" : "Reduce significantly the pause between each cops' actions.\nIn short: cops move faster.",
+
+	"fs_options_eyes_wide_open_title" : "Eyes wide open",
+	"fs_options_eyes_wide_open_desc" : "All NPCs are always updated 10 times per second.\nIt supersedes option 'Fast-paced game'.",
+
+	"fs_options_hostage_situation_title" : "Hostage situation",
+	"fs_options_hostage_situation_desc" : "Enemy turrets won't shoot at targets too close to hostages.",
+
+	"fs_options_iter_chase_title" : "Improved chase",
+	"fs_options_iter_chase_desc" : "Cops' pathfinding is done one step ahead, so cops don't stop as long as your CPU computes paths in time.\nRequires Iter.",
+
+	"fs_options_nervous_game_title" : "Nervous game",
+	"fs_options_nervous_game_desc" : "Cops know who you are and will identify you instantly and be more prone to shoot!\nThis option doesn't affect stealth gameplay. Change will be effective after a heist restart.",
+
+	"fs_options_improved_tactics_title" : "Improved tactics",
+	"fs_options_improved_tactics_desc" : "Cops will occupy space differently and do flank attacks much more often.\nRequires Iter.",
+
+	"fs_options_cop_awareness_title" : "Cop awareness",
+	"fs_options_cop_awareness_desc" : "Cops will face danger more and their firing range while moving is increased.\nChange will be effective after a heist restart.",
+
+	"fs_options_spawn_delay_title" : "Spawn delay",
+	"fs_options_spawn_delay_desc" : "A spawn kill executed from less than 10 meters delays next spawn of related point by 10 to 20 seconds.\nThis prevents excessive enemy flood when you're near a spawn point.",
+
+	"fs_options_disable_stealth_changes_title" : "Disable FSS changes in stealth",
+	"fs_options_disable_stealth_changes_desc" : "Keeps FSS gameplay changes out of stealth, including faster detection, faster AI updates, improved tactics, cop awareness, and Stealthroids run forcing.",
+
+	"fs_mutator_bigparty_name" : "FSS's Big Party",
+	"fs_mutator_bigparty_desc" : "Increase spawn levels.",
+	"fs_mutator_bigparty_longdesc" : "",
+	"fs_menu_mutator_cops_nr" : "Maximum number of cops",
+
+	"fs_mutator_realelastic_name" : "FSS's Real Elastic",
+	"fs_mutator_realelastic_desc" : "Make game stretchy.",
+	"fs_mutator_realelastic_longdesc" : "",
+
+	"fs_mutator_stealthroids_name" : "FSS's Stealthroids",
+	"fs_mutator_stealthroids_desc" : "No walking allowed!",
+	"fs_mutator_stealthroids_longdesc" : ""
+}

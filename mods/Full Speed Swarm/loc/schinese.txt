@@ -1,0 +1,59 @@
+{
+	"fs_options_menu_title" : "全速突击",
+	"fs_options_menu_desc" : "Full Speed Swarm\n一个优化游戏体验的模组，可以避免一些BUG和闪退的发生，增加难度的选项不是必须的。",
+
+	"fs_options_task_throughput_title" : "每秒计算量",
+	"fs_options_task_throughput_desc" : "默认为600，原版为60，更大的数值只在敌人增加时生效，潜入时数值太低将导致暴露条卡顿\n数值大小可能决定敌人反应速度的快慢（低于60时将自动决定每秒执行的最大任务数量）",
+
+	"fs_options_walking_quality_title" : "行动模式",
+	"fs_options_walking_quality_desc" : "警察的行动更加流畅（“严阵以待“-敌人每2帧行动一次 “如临大敌”-敌人每1帧行动一次）",
+	"fs_options_walking_quality_multi_a" : "普通",
+	"fs_options_walking_quality_multi_b" : "严阵以待",
+	"fs_options_walking_quality_multi_c" : "如临大敌",
+
+	"fs_options_lod_updater_title" : "反应增强",
+	"fs_options_lod_updater_desc" : "让警察在人数较多的时候依旧灵敏（雷厉风行最快），劫案重新开始后会自动应用您的设置",
+	"fs_options_lod_updater_multi_a" : "眼疾手快",
+	"fs_options_lod_updater_multi_b" : "雷厉风行",
+	"fs_options_lod_updater_multi_c" : "默认",
+
+	"fs_options_high_violence_mode_title" : "高暴力模式",
+	"fs_options_high_violence_mode_desc" : "\"恋尸癖\"人群专属。\n为尸体启用一些\"布娃娃\"效果。",
+
+	"fs_options_fastpaced_title" : "训练有素",
+	"fs_options_fastpaced_desc" : "显著减少警察每个行动之间的停顿",
+
+	"fs_options_eyes_wide_open_title" : "明察秋毫",
+	"fs_options_eyes_wide_open_desc" : "所有NPC的视野及行为判定等均每秒刷新10次。\n该选项已包含\"训练有素\"的功能。",
+
+	"fs_options_hostage_situation_title" : "火力调控",
+	"fs_options_hostage_situation_desc" : "敌方机枪炮塔在面对人质附近的目标时，会谨慎调整火力。",
+
+	"fs_options_iter_chase_title" : "穷追不舍",
+	"fs_options_iter_chase_desc" : "需要Iter模组，警察将会计划自己到玩家的最短路线然后马不停蹄的赶到玩家附近",
+
+	"fs_options_nervous_game_title" : "快速反应",
+	"fs_options_nervous_game_desc" : "警察看到你后开枪反应时间减少\n此选项不影响潜行的暴露检测速率",
+
+	"fs_options_cop_awareness_title" : "火力掩护",
+	"fs_options_cop_awareness_desc" : "警察会使用火力掩护帮助他们的队友进攻\n劫匪在被敌人看到后可能会遭到火力压制",
+
+	"fs_options_improved_tactics_title" : "战术围剿",
+	"fs_options_improved_tactics_desc" : "警察会从多个方向和角度进攻且更偏向于从侧翼包抄劫匪\n此因子需要Iter模组支持",
+
+	"fs_options_spawn_delay_title" : "延迟刷兵",
+	"fs_options_spawn_delay_desc" : "杀敌后10米内的刷新点下次刷新时间将延后10~20秒\n以防警察在您的面前刷新 (或者是一个幻影特警刷新在你屁股后面）",
+
+	"fs_mutator_bigparty_name" : "FSS犯罪狂欢",
+	"fs_mutator_bigparty_desc" : "自定义突击时的最大警察数量",
+	"fs_mutator_bigparty_longdesc" : "自定义突击时的最大警察数量",
+	"fs_menu_mutator_cops_nr" : "警察数量上限",
+
+	"fs_mutator_realelastic_name" : "FSS极限挑战",
+	"fs_mutator_realelastic_desc" : "真实模式——极大地增加强攻游戏难度，并使游戏变得更像一个真正的合作抢劫类型游戏",
+	"fs_mutator_realelastic_longdesc" : "启用该因子会大幅度减少警察的最大数量和AI队友的血量，激活所有FSS的游戏更改选项，取消受击无敌时间，被偷的战利品取消高亮，每次倒地都会减少你的耐力上限（可用医疗箱恢复）。\n\n在该因子下，建议你将计算量调为0，行动模式调为\"如临大敌\"，反应增强调为\"雷厉风行\"。\n在该设置下，敌人的反应更加迅速，行动更具有战术性，游戏的难度将源于敌人的质量而非数量，劫匪们需要精诚合作才能渡过难关。\n\n此因子需要Iter模组支持，且能大幅度提高帧数。",
+
+	"fs_mutator_stealthroids_name" : "FSS最高警戒",
+	"fs_mutator_stealthroids_desc" : "使潜入模式下的NPC们跑步巡逻",
+	"fs_mutator_stealthroids_longdesc" : "警察和平民都会跑步巡逻，他们的视野范围会因此有一定程度的提升，但他们依然会在某处停下来暂时站桩。\n此选项在潜入和强攻模式均有效，但建议强攻时不要用在除了热火街头以外的地图上，因为有可能会触发闪退。"
+}

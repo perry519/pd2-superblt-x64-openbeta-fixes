@@ -1,0 +1,52 @@
+{
+	"fs_options_menu_title" : "Full Speed Swarm",
+	"fs_options_menu_desc"  : "",
+
+
+	"fs_options_task_throughput_title" : "Transferência de tarefa por segundo",
+	"fs_options_task_throughput_desc" : "FSS' o valor padrão é 600, um valor maior só faz sentido para configurações de spawn de mutações.\nUm valor baixo penalizará toda a capacidade de resposta do NPC. Todos os valores abaixo do valor padrão do jogo base significam 'automático'.", 
+
+	"fs_options_walking_quality_title" : "Qualidade de andar",
+	"fs_options_walking_quality_desc" : "Um personagem é movido pelo menos uma vez a cada 2 quadros em VH e todos os quadros no Ultra.\nA mudança será eficaz após reiniciar.",
+	"fs_options_walking_quality_multi_a" : "Original",
+	"fs_options_walking_quality_multi_b" : "Muito alto",
+	"fs_options_walking_quality_multi_c" : "Ultra",
+
+	"fs_options_lod_updater_title" : "Atualização de LOD",
+	"fs_options_lod_updater_desc" : "Personagens que você olha (no centro da tela) são mais animados. Trata-se de atualizar quem você está olhando. A mudança será eficaz após reiniciar.",
+	"fs_options_lod_updater_multi_a" : "Personalizado (qualidade)",
+	"fs_options_lod_updater_multi_b" : "Personalizado (rápido)",
+	"fs_options_lod_updater_multi_c" : "Original",
+
+	"fs_options_fastpaced_title" : "Jogo em ritmo acelerado",
+	"fs_options_fastpaced_desc" : "Reduza significativamente a pausa entre as ações de cada policial.\nResumindo: policiais se movem mais rápido.",
+
+	"fs_options_iter_chase_title" : "Perseguição melhorada",
+	"fs_options_iter_chase_desc" : "A ação dos policiais é feita um passo à frente, então os policiais não param,\ndesde que sua CPU calcule os caminhos a tempo. Requer Iter.",
+
+	"fs_options_nervous_game_title" : "Jogo nervoso",
+	"fs_options_nervous_game_desc" : "Policiais sabem quem você é e vão identificá-lo instantaneamente e ser mais propenso a atirar!\nEssa opção não afeta a jogabilidade furtiva. A mudança será eficaz após reiniciar.",
+
+	"fs_options_improved_tactics_title" : "Táticas melhoradas",
+	"fs_options_improved_tactics_desc" : "Policiais ocuparão o espaço de forma diferente e farão ataques de flanco com muito mais frequência.\nRequer Iter.",
+
+	"fs_options_cop_awareness_title" : "Conscientização policial",
+	"fs_options_cop_awareness_desc" : "Policiais enfrentarão mais perigo e seu alcance de tiro enquanto se move é aumentado.\nA mudança será eficaz após reiniciar.",
+
+
+	"fs_options_spawn_delay_title" : "Atraso de spawn",
+	"fs_options_spawn_delay_desc" : "Uma morte de spawn executada a menos de 10 metros atrasa o próximo spawn de ponto relacionado por 10 a 20 segundos. Isso evita inundações inimigas excessivas quando você está perto de um ponto de spawn.",
+
+	"fs_mutator_bigparty_name" : "FSS's Grande Grupo",
+	"fs_mutator_bigparty_desc" : "Aumenta os níveis de spawn.",
+	"fs_mutator_bigparty_longdesc" : "",
+	"fs_menu_mutator_cops_nr" : "Número máximo de policiais",
+
+	"fs_mutator_realelastic_name" : "FSS's Elástico Real",
+	"fs_mutator_realelastic_desc" : "Faça o jogo elástico.",
+	"fs_mutator_realelastic_longdesc" : "Ele diminui drasticamente o número máximo de policiais, ativa todas as opções de mudança de jogabilidade do FSS e remove o período de carência para os jogadores.\nAlém disso, a resistência máxima depende de sua quantidade de vidas, como uma ferida que te atrasa.\nEsta mutação requer Iter.",
+
+	"fs_mutator_stealthroids_name" : "FSS's Furtivo",
+	"fs_mutator_stealthroids_desc" : "Não é permitido andar!",
+	"fs_mutator_stealthroids_longdesc" : "Projetado para furtividade, força os NPCs a correr. Sempre.\nEsta mutação requer Iter."
+}

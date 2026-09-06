@@ -1,0 +1,59 @@
+{
+	"fs_options_menu_title" : "Full Speed Swarm",
+	"fs_options_menu_desc"  : "Este mod permite que todos los NPC permanezcan tan activos como lo requieran las especificaciones del juego. También agrega una gran cantidad de correcciones y optimizaciones de código.",
+
+	"fs_options_task_throughput_title" : "Rendimiento de tareas por segundo",
+	"fs_options_task_throughput_desc" : "El valor predeterminado de FSS es 600, un valor mayor solo tiene sentido cuando se utiliza un mutador que aumente la cantidad de enemigos. Un valor bajo penalizará la capacidad de respuesta de todos los NPC. Todos los valores por debajo del valor predeterminado del juego base significarán 'automático'.",
+
+	"fs_options_walking_quality_title" : "Calidad al caminar",
+	"fs_options_walking_quality_desc" : "Un personaje se mueve al menos una vez cada 2 fotogramas en 'Muy Alta' y a cada fotograma en 'Ultra'.\nEl cambio solo será efectivo después de reiniciar el atraco.",
+	"fs_options_walking_quality_multi_a" : "Original",
+	"fs_options_walking_quality_multi_b" : "Muy Alta",
+	"fs_options_walking_quality_multi_c" : "Ultra",
+
+	"fs_options_lod_updater_title" : "Actualizador de LOD",
+	"fs_options_lod_updater_desc" : "Los personajes que miras (centro de la pantalla) están mejor animados. Trata sobre la animación de quiénes estás mirando. El cambio será efectivo después de reiniciar el atraco.",
+	"fs_options_lod_updater_multi_a" : "Personalizado (calidad)",
+	"fs_options_lod_updater_multi_b" : "Personalizado (rápido)",
+	"fs_options_lod_updater_multi_c" : "Original",
+
+	"fs_options_high_violence_mode_title" : "Modo de alta violencia",
+	"fs_options_high_violence_mode_desc" : "Para los amantes de los muñecos de trapo.",
+
+	"fs_options_fastpaced_title" : "Juego Apurado",
+	"fs_options_fastpaced_desc" : "Reduce significativamente la pausa entre las acciones de cada policía.\nEn resumen: los policías se mueven más rápido.",
+
+	"fs_options_eyes_wide_open_title" : "Los ojos bien abiertos",
+	"fs_options_eyes_wide_open_desc" : "Todos los NPCs siempre se actualizan 10 veces por segundo.\nReemplaza la opción 'Juego Apurado'.",
+
+	"fs_options_hostage_situation_title" : "Situación de rehenes",
+	"fs_options_hostage_situation_desc" : "Las torretas enemigas dispararán en ráfagas a objetivos demasiado cercanos a los rehenes,\npara evitar herir y poner en mayor peligro a los rehenes.",
+
+	"fs_options_iter_chase_title" : "Persecución mejorada",
+	"fs_options_iter_chase_desc" : "La búsqueda de rutas de los policías se realizará un paso adelante, por lo que los policías no se detendran mientras su CPU calcule las rutas a tiempo. Requiere Iter.",
+
+	"fs_options_nervous_game_title" : "Juego Nervioso",
+	"fs_options_nervous_game_desc" : "¡Los policías saben quién eres, por lo que te identificarán al instante y serán más propensos a disparar!\nEsta opción no afecta el juego sigiloso. El cambio será efectivo después de un reinicio de atraco.",
+
+	"fs_options_improved_tactics_title" : "Tácticas Mejoradas",
+	"fs_options_improved_tactics_desc" : "Los policías se distribuirán mejor en sus espacios y atacarán tus flancos con mucha más frecuencia.\nRequiere Iter.",
+
+	"fs_options_cop_awareness_title" : "Conciencia Policial",
+	"fs_options_cop_awareness_desc" : "Los policías se enfrentarán más al peligro y aumentará su rango de disparo mientras se mueven.\nEl cambio será efectivo después de reiniciar el atraco.",
+
+	"fs_options_spawn_delay_title" : "Retraso de Aparición",
+	"fs_options_spawn_delay_desc" : "Un asesinato ejecutado desde menos de 10 metros de un punto de aparición, retrasará la próxima aparición de enemigos del punto relacionado de 10 a 20 segundos. Esto evita la inundación excesiva de enemigos cuando estás cerca de un punto de generación.",
+
+	"fs_mutator_bigparty_name" : "Gran fiesta de FSS",
+	"fs_mutator_bigparty_desc" : "Aumenta los niveles de generación.",
+	"fs_mutator_bigparty_longdesc" : "",
+	"fs_menu_mutator_cops_nr" : "Número máximo de policías",
+
+	"fs_mutator_realelastic_name" : "Real Elástico de FSS",
+	"fs_mutator_realelastic_desc" : "Haz que el juego sea elástico. Lo traduje lo mejor que pude xD.",
+	"fs_mutator_realelastic_longdesc" : "",
+
+	"fs_mutator_stealthroids_name" : "Trotadores sigilosos de FSS",
+	"fs_mutator_stealthroids_desc" : "¡No se permite caminar!",
+	"fs_mutator_stealthroids_longdesc" : ""
+}
